@@ -1,8 +1,10 @@
 WaterCraft::Application.routes.draw do
 
+  get "index/index"
+
   devise_for :users
 
-	root :to => "home#index"
+	root :to => "Index#index"
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.

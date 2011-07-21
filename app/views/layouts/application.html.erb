@@ -8,10 +8,34 @@
 </head>
 <body>
 
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>	
+	<div id="head">
+		<h1>WaterCraft</h1>
+	</div>
 
-<%= yield %>
+	<div id="menu">
+
+		<a>Home</a> | <a>Information</a>
+
+		<div id="log">
+			<% unless user_signed_in? %>
+				<%= link_to "Login", new_user_session_path %>
+				<%= link_to "Registrieren", new_user_registration_path  %>
+			<% else %>
+				<%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+			<% end %>
+		</div>
+
+	</div>
+	<% unless notice.nil? || alert.nil? %> 
+	<div id="alert">
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+	</div>
+	<% end %>
+	
+	<div id="content">
+		<%= yield %>
+	</div>
 
 </body>
 </html>

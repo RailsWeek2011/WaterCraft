@@ -5,3 +5,52 @@
  *= require_self
  *= require_tree . 
 */
+
+body {
+	background-color:	blue;
+	font-family:	Corbel, Centaur, Comic Sans, Verdana;
+}
+
+div#head {
+	text-align: center;
+}
+
+div#menu {
+	height: 3em;
+	background-color: navy;
+	color:	white;
+	text-align: center;
+	padding-top: 1.5em;
+}
+
+div#log {
+	float:right;
+	padding-right: 10px;
+}
+
+div#alert {
+	padding: 0% 20% 0% 20%;
+	border: solid black 3px;
+	color: white;
+	font-weight:bold;
+	background-color: red;
+}
+
+div#content {
+	margin-top: 20px;
+	background-color: navy;
+	color:	white;
+	clear: both;
+}
+
+h1 {
+	font-size:	3em;
+}
+
+a:visited {
+	color: white;
+}
+
+a:link {
+	color: white;
+}
