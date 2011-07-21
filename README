@@ -5,8 +5,8 @@ Benutzte Gems	:	devise
 Autoren			:	Kretsch, Markus Benjamin
 					Zey, Frank Kevin
 
-Features		:	#1	BenutzerVerwaltung
-					#2	SkillManagement
+Features		:	#1	Benutzerverwaltung
+					#2	Skillmanagement
 					#3	PN-System
 					#4	Ranking-System
 					#5	Kampf-System
