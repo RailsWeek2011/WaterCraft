@@ -1,12 +1,40 @@
-<body class="profile">
+<div id="profile">
 
-	<h1>Profile#index</h1>
+	<h2>Profil Liste</h2>
 
+	<table id="tableID">
+		<tr>
+		
+			<th>
+				UserName
+			</th>
+			<th>
+				Rasse
+			</th>
+			<th>
+				Level
+			</th>
+			<th>
+				SiegQuote
+			</th>
+		
+		</tr>
+		<% @u.each do |user| %>
+		<tr>
+				<td>
+					<%= link_to user.nick, "/profile/show/#{user.id}" %>
+				</td>
+				<td>
+					Rasse
+				</td>
+				<td>
+					Level
+				</td>
+				<td>
+					Rateing
+				</td>
+		</tr>
+		<% end %>
+	</table>
 
-	<% @u.each do |user| %>
-		<%= link_to user.nick, "/profile/show/#{user.id}" %>
-	<% end %>
-
-	<p>Find me in app/views/profile/index.html.erb</p>
-
-</body>
+</div>

@@ -3,6 +3,7 @@ class ProfileController < ApplicationController
 	
   def show
   	@profil = User.find params[:id]
+  	@anz = @profil.win + @profil.lose
   end
 
   def edit

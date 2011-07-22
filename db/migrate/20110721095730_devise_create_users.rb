@@ -11,7 +11,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
       # t.token_authenticatable
 
+      t.references :fish
       t.string :nick
+      t.integer :win,	:default => 0
+      t.integer :lose,	:default => 0
       t.boolean :isAdmin, :default => false
 
       t.timestamps

@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110721095730) do
+ActiveRecord::Schema.define(:version => 20110722141156) do
+
+  create_table "fish", :force => true do |t|
+    t.string   "name",       :default => "Peter"
+    t.integer  "race",       :default => 0
+    t.integer  "dev",        :default => 1
+    t.integer  "con",        :default => 1
+    t.integer  "init",       :default => 1
+    t.integer  "dex",        :default => 1
+    t.integer  "str",        :default => 1
+    t.integer  "lvl",        :default => 1
+    t.integer  "hp",         :default => 6
+    t.integer  "exp",        :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
@@ -23,7 +38,10 @@ ActiveRecord::Schema.define(:version => 20110721095730) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "fish_id"
     t.string   "nick"
+    t.integer  "win",                                   :default => 0
+    t.integer  "lose",                                  :default => 0
     t.boolean  "isAdmin",                               :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

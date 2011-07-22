@@ -17,20 +17,20 @@
 			</tr>
 			<tr>
 				<th>Kämpfe</th>
-				<td>Anzahl der Kämpfe</td>
+				<td><%= @anz %></td>
 			</tr>
 			<tr>
 				<th>
 					Siege
 				</th>
 				<td>
-					41586
+					<%= @profil.win %>
 				</td>
 				<th>
 					Niederlagen
 				</th>
 				<td>
-					56
+					<%= @profil.lose %>
 				</td>
 			</tr>
 			<tr>
@@ -38,7 +38,11 @@
 					Ratio
 				</th>
 				<td>
-					Anzahl der Kämpfe/Siege
+					<% unless @anz == 0 %>
+						<%= @profil.win / @anz %>
+					<% else %>
+						<%= 0 %>
+					<% end %>
 				</td>
 			</tr>
 		</table>
