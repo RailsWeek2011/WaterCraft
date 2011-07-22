@@ -8,6 +8,14 @@ class ProfileController < ApplicationController
 
   def edit
   end
+  
+  def create
+  
+  end
+  
+  def new
+  
+  end
 
   def index
   	@u = User.all

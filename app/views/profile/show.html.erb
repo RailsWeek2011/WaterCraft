@@ -49,6 +49,9 @@
 	</div>
 </div>
 <br />
+
+<% unless @profil.fish_id.nil? %>
+
 <h3><%= @profil.nick %>s Fisch</h3>
 <div id="userfish">
 	<div id="fishimg">
@@ -71,14 +74,14 @@
 			</tr>
 			<tr>
 				<th>Rasse</th>
-				<td>Rassenname</td>
+				<td><%= getRaceName (Fish.find @profil.fish_id).race %></td>
 			</tr>
 			<tr>
 				<th>
 					Level
 				</th>
 				<td>
-					lvl:int
+					<%= (Fish.find @profil.fish_id).lvl %>
 				</td>
 			</tr>
 			<tr>
@@ -86,7 +89,7 @@
 					Erfahrung
 				</th>
 				<td>
-					exp:int
+					<%= (Fish.find @profil.fish_id).exp %>
 				</td>
 			</tr>
 			<tr>
@@ -94,7 +97,7 @@
 					Stärke
 				</th>
 				<td>
-					Stärke:int
+					<%= (Fish.find @profil.fish_id).str %>
 				</td>
 			</tr>
 			<tr>
@@ -102,7 +105,7 @@
 					Verteidigung
 				</th>
 				<td>
-					dev:int
+					<%= (Fish.find @profil.fish_id).dev %>
 				</td>
 			</tr>
 			<tr>
@@ -110,7 +113,7 @@
 					Kondition
 				</th>
 				<td>
-					con:int
+					<%= (Fish.find @profil.fish_id).con %>
 				</td>
 			</tr>
 			<tr>
@@ -118,7 +121,7 @@
 					Initiative
 				</th>
 				<td>
-					init:int
+					<%= (Fish.find @profil.fish_id).init %>
 				</td>
 			</tr>
 			<tr>
@@ -126,10 +129,20 @@
 					Geschicklichkeit
 				</th>
 				<td>
-					dex:int
+					<%= (Fish.find @profil.fish_id).dex %>
 				</td>
 			</tr>
 		</table>
 	</div>
 </div>
+
+<%	else %>
+
+	<div>
+		<%= @profil.nick %> hat keinen Fisch | <%= link_to "Erstelle deinen Fish", "/profile/new" %>
+		
+	</div>
+
+<% end %>
+
 </div>
