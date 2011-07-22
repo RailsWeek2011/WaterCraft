@@ -14,7 +14,7 @@
 
 	<div id="menu">
 
-		<a>Home</a> | <a>Information</a>
+		<%= link_to "Home", "/" %> | <a>Information</a> | <%= link_to "Show", "/profile/index" %>
 
 		<div id="log">
 			<% unless user_signed_in? %>

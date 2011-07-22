@@ -12,7 +12,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.token_authenticatable
 
       t.string :nick
-      t.boolean :isAdmin
+      t.boolean :isAdmin, :default => false
 
       t.timestamps
     end

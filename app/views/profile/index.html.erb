@@ -1,0 +1,12 @@
+<body class="profile">
+
+	<h1>Profile#index</h1>
+
+
+	<% @u.each do |user| %>
+		<%= link_to user.nick, "/profile/show/#{user.id}" %>
+	<% end %>
+
+	<p>Find me in app/views/profile/index.html.erb</p>
+
+</body>

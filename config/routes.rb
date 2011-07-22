@@ -1,30 +1,13 @@
 WaterCraft::Application.routes.draw do
+	
 
-  get "index/index"
-
-  devise_for :users
+  	devise_for :users
 
 	root :to => "Index#index"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	get "/profile/show/:id" => "profile#show"
+	get "/profile/edit" => "profile#edit"
+	get "/profile/index" => "profile#index"
 
 
 
