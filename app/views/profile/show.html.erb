@@ -1,3 +1,131 @@
-<h1>Profile#show</h1>
-<%= @profil.nick %>
-<p>Find me in app/views/profile/show.html.erb</p>
+<div id="profile">
+<h3><%= @profil.nick %>s Profil</h3>
+
+<div id="profile_body">
+	<div id="img">
+		<%= image_tag "rails.png"%>
+	</div>
+	<div>
+		<table id="tableID">
+			<colgroup>
+				<col>
+				<col>
+			</colgroup>
+			<tr>
+				<th>Nick</th>
+				<td><%= @profil.nick %></td>
+			</tr>
+			<tr>
+				<th>Kämpfe</th>
+				<td>Anzahl der Kämpfe</td>
+			</tr>
+			<tr>
+				<th>
+					Siege
+				</th>
+				<td>
+					41586
+				</td>
+				<th>
+					Niederlagen
+				</th>
+				<td>
+					56
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Ratio
+				</th>
+				<td>
+					Anzahl der Kämpfe/Siege
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<br />
+<h3><%= @profil.nick %>s Fisch</h3>
+<div id="userfish">
+	<div id="fishimg">
+		<%= image_tag "rails.png" %>
+	</div>
+	<div>
+		<table id="tableID">
+			<colgroup>
+				<col>
+				<col>
+			</colgroup>
+			<tr>
+				<th>Name</th>
+				<td><%= @profil.nick %></td>
+			</tr>
+			<tr>
+				<th>
+					Atrribute des Fisches:
+				</th>
+			</tr>
+			<tr>
+				<th>Rasse</th>
+				<td>Rassenname</td>
+			</tr>
+			<tr>
+				<th>
+					Level
+				</th>
+				<td>
+					lvl:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Erfahrung
+				</th>
+				<td>
+					exp:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Stärke
+				</th>
+				<td>
+					Stärke:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Verteidigung
+				</th>
+				<td>
+					dev:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Kondition
+				</th>
+				<td>
+					con:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Initiative
+				</th>
+				<td>
+					init:int
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Geschicklichkeit
+				</th>
+				<td>
+					dex:int
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</div>

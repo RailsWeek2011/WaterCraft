@@ -2,7 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body.profile {
-  // Add the profile class to your body tag
-  // Then, place scoped styles here.
+div#profile_body {
+	padding: 20px 20px 20px 20px;
+}
+
+table#tableID th {
+	width: 200px;
+}
+
+div#profile {
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+div#img {
+	float:right;
+	padding-right: 20px;
+}
+
+table#tableID {
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+}
+
+div#userfish {
+	padding: 20px 20px 20px 20px;
+}
+
+div#fishimg {
+	float:right;
+	padding-right: 20px;
 }
