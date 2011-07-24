@@ -55,7 +55,7 @@
 <h3><%= @profil.nick %>s Fisch</h3>
 <div id="userfish">
 	<div id="fishimg">
-		<%= image_tag "rails.png" %>
+		<%= image_tag "#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
 	</div>
 	<div>
 		<table id="tableID">
@@ -139,7 +139,10 @@
 <%	else %>
 
 	<div>
-		<%= @profil.nick %> hat keinen Fisch | <%= link_to "Erstelle deinen Fish", "/profile/new" %>
+		<%= @profil.nick %> hat keinen Fisch
+		<% if current_user.id == @profil.id %>
+		 | <%= link_to "Erstelle deinen Fish", "/profile/new" %>
+		<% end %>
 		
 	</div>
 

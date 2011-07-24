@@ -47,6 +47,52 @@ h1 {
 	font-size:	3em;
 }
 
+div#test {
+    margin:auto;
+}
+
+ul#Navigation {
+    text-align: center;
+    margin:auto;
+}
+
+ul#Navigation li {
+    border: 1px solid black;
+    margin-left: 5px;
+    list-style: none;
+    float: left;
+}
+
+ul#Navigation li ul li {
+	padding-left: 0px;
+    margin-left: 0px;
+    margin-top: 4px;
+	background-color: navy;
+    float: none;
+   }
+
+ul#Navigation li ul {
+    position: absolute;
+	display: none;
+    margin: 0; padding: 0;
+}
+
+ul#Navigation li:hover ul {
+    display: block;  /* Unternavigation in modernen Browsern einblenden */
+}
+
+ul#Navigation a {
+    display: block;
+    padding: 0.2em 1em;
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+ul#Navigation a:hover {
+    color: white; 
+    background-color: gray;
+}
+
 a:visited {
 	color: white;
 }

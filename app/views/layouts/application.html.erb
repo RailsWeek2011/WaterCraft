@@ -12,9 +12,19 @@
 		<h1>WaterCraft</h1>
 	</div>
 
-	<div id="menu">
-
-		<%= link_to "Home", "/" %> | <a>Information</a> | <%= link_to "Show", "/profile/index" %>
+	<div id="menu"><div id="test">
+		<ul id="Navigation" >
+			<li><%= link_to "Home", "/" %>	 				</li>
+			<li><a>Information</a>							</li>
+			<li>
+				<a>Show</a>
+				<ul>
+					<li><%= link_to "Mitglieder", "/profile/index" %></li>
+					<li><%= link_to "Eigenes Profil", "/profile/show/#{current_user.id}" %></li>
+					<li><%= link_to "Nachrichten", "/messages/show" %></li>
+			  	</ul>
+		  	</li>
+		</ul></div>
 
 		<div id="log">
 			<% unless user_signed_in? %>
