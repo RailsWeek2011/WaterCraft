@@ -16,6 +16,7 @@
 		<ul id="Navigation" >
 			<li><%= link_to "Home", "/" %>	 				</li>
 			<li><a>Information</a>							</li>
+			<% if user_signed_in? %>
 			<li>
 				<a>Show</a>
 				<ul>
@@ -24,6 +25,7 @@
 					<li><%= link_to "Nachrichten", "/messages/show" %></li>
 			  	</ul>
 		  	</li>
+		  	<% end %>
 		</ul></div>
 
 		<div id="log">
