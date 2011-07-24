@@ -1,0 +1,57 @@
+// Place all the styles related to the Profile controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#profile_body {
+	padding: 20px 20px 20px 20px;
+}
+
+table#tableID th {
+	width: 200px;
+}
+
+div#profile {
+	padding-left: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+div#img {
+	float:right;
+	padding-right: 20px;
+}
+
+div#Bilder {
+	height: 900px;
+	padding: 20px 20px 20px 20px;
+}
+
+div#element {
+	padding: 20px 20px 20px 20px;
+	float:left;
+	text-align: center;
+}
+
+img#Bild {
+	border-width: 3px;
+	border-style: solid;
+	border-color: black;
+}
+
+table#tableID {
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+}
+
+div#userfish {
+	padding: 20px 20px 20px 20px;
+}
+
+div#fishimg {
+	float:right;
+	padding-right: 20px;
+}
+
+div#edit {
+	font-size: 0.7em;
+}

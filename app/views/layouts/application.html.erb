@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WaterCraft</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	<div id="head">
+		<h1>WaterCraft</h1>
+	</div>
+
+	<div id="menu"><div id="test">
+		<ul id="Navigation" >
+			<li><%= link_to "Home", "/" %>	 				</li>
+			<li><a>Information</a>							</li>
+			<% if user_signed_in? %>
+			<li>
+				<a>Show</a>
+				<ul>
+					<li><%= link_to "Mitglieder", "/profile/index" %></li>
+					<li><%= link_to "Eigenes Profil", "/profile/show/#{current_user.id}" %></li>
+					<li><%= link_to "Nachrichten", "/messages/show" %></li>
+			  	</ul>
+		  	</li>
+		  	<% end %>
+		</ul></div>
+
+		<div id="log">
+			<% unless user_signed_in? %>
+				<%= link_to "Login", new_user_session_path %>
+				<%= link_to "Registrieren", new_user_registration_path  %>
+			<% else %>
+				<%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+			<% end %>
+		</div>
+
+	</div>
+	<% unless notice.nil? || alert.nil? %>
+	<div id="alert">
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+	</div>
+	<% end %>
+	
+	<div id="content">
+		<%= yield %>
+	</div>
+
+</body>
+</html>

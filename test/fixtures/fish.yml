@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  race: 1
+  dev: 1
+  con: 1
+  hp: 1
+  init: 1
+  dex: 1
+  lvl: 1
+  str: 1
+  exp: 
+
+two:
+  name: MyString
+  race: 1
+  dev: 1
+  con: 1
+  hp: 1
+  init: 1
+  dex: 1
+  lvl: 1
+  str: 1
+  exp: 

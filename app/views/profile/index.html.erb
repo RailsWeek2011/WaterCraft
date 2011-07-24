@@ -1,0 +1,53 @@
+<div id="profile">
+
+	<h2>Profil Liste</h2>
+
+	<table id="tableID">
+		<tr>
+		
+			<th>
+				UserName
+			</th>
+			<th>
+				Rasse
+			</th>
+			<th>
+				Level
+			</th>
+			<th>
+				SiegQuote
+			</th>
+		
+		</tr>
+		<% @u.each do |user| %>
+		<tr>
+				<td>
+					<%= link_to user.nick, "/profile/show/#{user.id}" %>
+				</td>
+					<% unless user.fish_id.nil? %>
+						<td>
+							<%= getRaceName (Fish.find user.fish_id).race %>
+						</td>
+						<td>
+							<%= (Fish.find user.fish_id).lvl %>
+						</td>
+					<% else %>
+						<td>
+							Kein Fisch
+						</td>
+						<td>
+							0
+						</td>
+					<% end %>
+				<td>
+					<% unless (user.win + user.lose) == 0 %>
+						<%= user.win / (user.win + user.lose) %>
+					<% else %>
+						<%= 0 %>
+					<% end %>
+				</td>
+		</tr>
+		<% end %>
+	</table>
+
+</div>

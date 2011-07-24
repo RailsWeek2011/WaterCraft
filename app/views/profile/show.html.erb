@@ -1,0 +1,163 @@
+<div id="profile">
+
+<div id="profile_body">
+	<h3>
+		<%= @profil.nick %>s Profil
+	</h3>
+	<div id="img">
+			<%= image_tag "#{@profil.image}", :height => 260, :id => "Bild" if @profil.image? %>
+			<%= image_tag "Common/JohnDoe.jpg", :height => 260, :id => "Bild" unless @profil.image? %>
+	</div>
+	<div>
+		<div id="edit">
+		  <% if current_user.id == @profil.id %>
+		  <%= link_to "Profil editieren", "/users/edit" %>
+		  <% end %>
+		</div>
+		<table id="tableID">
+			<colgroup>
+				<col>
+				<col>
+			</colgroup>
+			<tr>
+				<th>Nick</th>
+				<td><%= @profil.nick %></td>
+			</tr>
+			<tr>
+				<th>Kämpfe</th>
+				<td><%= @anz %></td>
+			</tr>
+			<tr>
+				<th>
+					Siege
+				</th>
+				<td>
+					<%= @profil.win %>
+				</td>
+				<th>
+					Niederlagen
+				</th>
+				<td>
+					<%= @profil.lose %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Ratio
+				</th>
+				<td>
+					<% unless @anz == 0 %>
+						<%= @profil.win / @anz %>
+					<% else %>
+						<%= 0 %>
+					<% end %>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<% unless @profil.fish_id.nil? %>
+
+<div id="userfish">
+	<h3><%= @profil.nick %>s Fisch</h3>
+	<div id="fishimg">
+		<%= image_tag "Fisch/#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
+	</div>
+	<div>
+		<table id="tableID">
+			<colgroup>
+				<col>
+				<col>
+			</colgroup>
+			<tr>
+				<th>Name</th>
+				<td><%= @profil.nick %></td>
+			</tr>
+			<tr>
+				<th>
+					Atrribute des Fisches:
+				</th>
+			</tr>
+			<tr>
+				<th>Rasse</th>
+				<td><%= getRaceName (Fish.find @profil.fish_id).race %></td>
+			</tr>
+			<tr>
+				<th>
+					Level
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).lvl %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Erfahrung
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).exp %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Stärke
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).str %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Verteidigung
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).dev %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Kondition
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).con %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Initiative
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).init %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Geschicklichkeit
+				</th>
+				<td>
+					<%= (Fish.find @profil.fish_id).dex %>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<%	else %>
+
+	<div>
+		<%= @profil.nick %> hat keinen Fisch
+		<% if current_user.id == @profil.id %>
+		 | <%= link_to "Erstelle deinen Fish", "/profile/new" %>
+		<% end %>
+		
+	</div>
+
+<% end %>
+
+</div>

@@ -1,0 +1,102 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+
+body {
+	background-color:	blue;
+	font-family:	Corbel, Centaur, Comic Sans, Verdana;
+}
+
+div#head {
+	text-align: center;
+}
+
+div#menu {
+	height: 3em;
+	background-color: navy;
+	color:	white;
+	text-align: center;
+	padding-top: 1.5em;
+}
+
+div#log {
+	float:right;
+	padding-right: 10px;
+}
+
+div#alert {
+	padding: 0% 20% 0% 20%;
+	border: solid black 3px;
+	color: white;
+	font-weight:bold;
+	background-color: red;
+}
+
+div#content {
+	margin-top: 20px;
+	background-color: navy;
+	color:	white;
+	clear: both;
+}
+
+h1 {
+	font-size:	3em;
+}
+
+div#test {
+    margin:auto;
+}
+
+ul#Navigation {
+    text-align: center;
+    margin:auto;
+}
+
+ul#Navigation li {
+    border: 1px solid black;
+    margin-left: 5px;
+    list-style: none;
+    float: left;
+}
+
+ul#Navigation li ul li {
+	padding-left: 0px;
+    margin-left: 0px;
+    margin-top: 4px;
+	background-color: navy;
+    float: none;
+   }
+
+ul#Navigation li ul {
+    position: absolute;
+	display: none;
+    margin: 0; padding: 0;
+}
+
+ul#Navigation li:hover ul {
+    display: block;  /* Unternavigation in modernen Browsern einblenden */
+}
+
+ul#Navigation a {
+    display: block;
+    padding: 0.2em 1em;
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+ul#Navigation a:hover {
+    color: white; 
+    background-color: gray;
+}
+
+a:visited {
+	color: white;
+}
+
+a:link {
+	color: white;
+}
