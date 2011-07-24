@@ -10,7 +10,16 @@ class ProfileController < ApplicationController
   end
   
   def create
-  
+    	@f = Fish.new :race => params[:id]
+
+		if @f.save
+			u = User.find current_user.id
+			u.fish_id = @f
+			u.save
+		    redirect_to "/profile/show/#{current_user.id}"
+		else
+		    render "/profile/new"
+		end
   end
   
   def new

@@ -1,6 +1,7 @@
 Projekt Name	: 	WaterCraft
 
 Benutzte Gems	:	devise
+					carrierwave
 
 Autoren			:	Kretsch, Markus Benjamin
 					Zey, Frank Kevin

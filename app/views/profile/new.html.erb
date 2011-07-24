@@ -9,7 +9,7 @@
 					<%= image_tag "#{e}", :height => 150, :id => "Bild" %><br>
 					<% e["Fisch/"] = "" %>
 					<% e[".jpg"] = "" %>
-					<%= link_to getRaceName(e.to_i), "create", :method => :post %>
+					<%= link_to getRaceName(e.to_i), "create/#{e.to_i}", :method => :get %>
 				</div>
 			
 			<% end %>
