@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20110722141156) do
     t.string   "last_sign_in_ip"
     t.integer  "fish_id"
     t.string   "nick"
+    t.string   "image"
     t.integer  "win",                                   :default => 0
     t.integer  "lose",                                  :default => 0
     t.boolean  "isAdmin",                               :default => false

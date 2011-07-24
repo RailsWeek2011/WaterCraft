@@ -13,6 +13,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.references :fish
       t.string :nick
+      t.string :image
       t.integer :win,	:default => 0
       t.integer :lose,	:default => 0
       t.boolean :isAdmin, :default => false

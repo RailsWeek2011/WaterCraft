@@ -1,9 +1,15 @@
 <div id="profile">
-<h3><%= @profil.nick %>s Profil</h3>
 
 <div id="profile_body">
+	<h3>
+		<%= @profil.nick %>s Profil
+		<% if current_user.id == @profil.id %>
+		 | <%= link_to "Profil editieren", "/users/edit" %>
+		<% end %>
+	</h3>
 	<div id="img">
-		<%= image_tag "rails.png"%>
+			<%= image_tag "#{@profil.image}", :height => 260, :id => "Bild" if @profil.image? %>
+			<%= image_tag "Common/JohnDoe.jpg", :height => 260, :id => "Bild" unless @profil.image? %>
 	</div>
 	<div>
 		<table id="tableID">
@@ -49,13 +55,17 @@
 	</div>
 </div>
 <br />
+<br />
+<br />
+<br />
+<br />
 
 <% unless @profil.fish_id.nil? %>
 
-<h3><%= @profil.nick %>s Fisch</h3>
 <div id="userfish">
+	<h3><%= @profil.nick %>s Fisch</h3>
 	<div id="fishimg">
-		<%= image_tag "#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
+		<%= image_tag "Fisch/#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
 	</div>
 	<div>
 		<table id="tableID">

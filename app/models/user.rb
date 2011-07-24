@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  	mount_uploader :image, ImageUploader
 
 	has_one :fish
 
@@ -10,6 +11,6 @@ class User < ActiveRecord::Base
 	validates :nick, :presence => true , :length => {:minimum => 3}
 
   	# Setup accessible (or protected) attributes for your model
-  	attr_accessible :email, :password, :password_confirmation, :remember_me, :nick
+  	attr_accessible :email, :password, :password_confirmation, :remember_me, :nick, :image
   
 end

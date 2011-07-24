@@ -14,7 +14,16 @@ class ProfileController < ApplicationController
   end
   
   def new
-  
+  	dirname = "app/assets/images/Fisch"
+  	dir = Dir.new(dirname)
+  	@entries = []
+  	while entry = dir.read
+  		path = "#{dirname}/#{entry}"
+  		if File.file?(path)
+  			@entries.push "Fisch/#{entry}"
+  		end
+  	end
+  	
   end
 
   def index
