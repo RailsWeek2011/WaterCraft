@@ -2,7 +2,7 @@ WaterCraft::Application.routes.draw do
 	
 
   	devise_for :users, :controllers => { :registrations => "registrations" }
-
+  	
 	root :to => "Index#index"
 	
 	get "/profile/show/:id" => "profile#show"
