@@ -10,16 +10,16 @@
   
   <div id="mess_body">
   
-    Nachricht<br>
+    <b>Nachricht</b><br>
     <%= @m.body %>
   
   </div>
   
   <div id="actions">
   
-    <%= link_to "Antworten", "/messages/new/#{@m.id}" %>
+    <%= link_to "Antworten", "/messages/new" %>
     &nbsp;|&nbsp;
-    <%= link_to "Löschen", "/messages/delete/#{@m.id}", :method => "delete" %>
+    <%= link_to "Löschen", "/messages/#{@m.id}", :method => "delete" %>
   
   </div>
 

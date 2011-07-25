@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   	mount_uploader :image, ImageUploader
 
 	has_one :fish
-	has_many :messages
+	#has_many :messages
 
 	  # Include default devise modules. Others available are:
 	  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

@@ -14,22 +14,22 @@ class MessagesController < ApplicationController
   	@m = Message.new
   end
   
-  def delete
+  def destroy
     @m = Message.find params[:id]
     @m.destroy
     
-    redirect_to "/messages/index"
+    redirect_to "/messages"
   end
   
   def create
-    @m = Message.new params[:m]
+    @m = Message.new params[:message]
     u = User.find :all, :conditions => {:nick => @m.to_name}
     unless u.first.nil?
       @m.to_id = u.first.id
       @m.from_id = current_user.id
     
       if @m.save
-        redirect_to "/messages/index"
+        redirect_to "/messages"
       else
         render action: "new"
       end

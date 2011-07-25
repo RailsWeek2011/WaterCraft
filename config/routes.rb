@@ -1,15 +1,17 @@
 WaterCraft::Application.routes.draw do
 
-  	get "messages/index"
+  	#get "messages/index"
 
-  	get "messages/show/:id" => "messages#show"
+  	#match "messages/show/:id" => "messages#show"
 
-  	get "messages/new/:id" => "messages#new"
+  	#get "messages/new/:id" => "messages#new"
   	
-  	get "messages/new" => "messages#new"
-  	post "messages/create" => "messages#create"
+  	#get "messages/new" => "messages#new"
+  	#post "messages/create" => "messages#create"
   	
-  	delete "messages/delete/:id" => "messages#delete"
+  	#delete "messages/delete/:id" => "messages#delete"
+
+	resources :messages
 
   	devise_for :users, :controllers => { :registrations => "registrations" }
   	
