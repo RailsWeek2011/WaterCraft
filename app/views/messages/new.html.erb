@@ -1,2 +1,36 @@
-<h1>Messages#new</h1>
-<p>Find me in app/views/messages/new.html.erb</p>
+<div id="messages">
+
+<%= form_for(@m) do |f| %>
+
+  <h3>Neue Nachricht</h3>
+  
+  <div id="to">
+  
+  	<%= f.label "Username" %><br>
+    <%= f.text_field :to_name %>
+  
+  </div>
+  
+  <div id="subject">
+  
+    <%= f.label "Betreff" %><br>
+    <%= f.text_field :betreff%>
+  
+  </div>
+  
+  <div id="mess_body">
+  
+    Nachricht<br>
+    <%= f.text_area :body %>
+  
+  </div>
+  
+  <div id="actions">
+  
+    <%= f.submit "Senden" %>
+  
+  </div>
+
+<% end %>
+
+</div>

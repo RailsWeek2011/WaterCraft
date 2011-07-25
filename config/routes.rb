@@ -4,7 +4,12 @@ WaterCraft::Application.routes.draw do
 
   	get "messages/show/:id" => "messages#show"
 
-  	get "messages/new"
+  	get "messages/new/:id" => "messages#new"
+  	
+  	get "messages/new" => "messages#new"
+  	post "messages/create" => "messages#create"
+  	
+  	delete "messages/delete/:id" => "messages#delete"
 
   	devise_for :users, :controllers => { :registrations => "registrations" }
   	

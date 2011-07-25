@@ -2,8 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-}
-
 div#messages {
 	padding: 20px 20px 20px 20px;	
+}
+
+div#mess_body {
+	padding: 20px 20px 20px 20px;
+}
+
+div#subject {
+	padding-left: 15px;
+}
+
+div#actions {
+	padding-left: 15px;
+}
+
+div#to {
+	padding-left:15px;
 }

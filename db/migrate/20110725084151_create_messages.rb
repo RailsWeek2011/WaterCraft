@@ -5,6 +5,8 @@ class CreateMessages < ActiveRecord::Migration
       t.references :from
       t.references :to
       t.text :body
+      t.string :betreff
+      t.string :to_name
 
       t.timestamps
     end

@@ -1,2 +1,26 @@
-<h1>Messages#show</h1>
-<p>Find me in app/views/messages/show.html.erb</p>
+<div id="messages">
+
+  <h3>Nachricht von <%= (User.find @m.from_id).nick %></h3>
+  
+  <div id="subject">
+  
+    <b>Betreff:&nbsp;</b><%= @m.betreff %>
+  
+  </div>
+  
+  <div id="mess_body">
+  
+    Nachricht<br>
+    <%= @m.body %>
+  
+  </div>
+  
+  <div id="actions">
+  
+    <%= link_to "Antworten", "/messages/new/#{@m.id}" %>
+    &nbsp;|&nbsp;
+    <%= link_to "Löschen", "/messages/delete/#{@m.id}", :method => "delete" %>
+  
+  </div>
+
+</div>
