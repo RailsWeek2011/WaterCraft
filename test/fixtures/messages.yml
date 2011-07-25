@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
+<<<<<<< HEAD
   from: 
   to: 
   body: MyText
@@ -9,3 +10,15 @@ two:
   from: 
   to: 
   body: MyText
+=======
+  from: MyString
+  to: MyString
+  body: MyText
+  betreff: MyString
+
+two:
+  from: MyString
+  to: MyString
+  body: MyText
+  betreff: MyString
+>>>>>>> 85cb47e6c5169500d20c20f72d59c5eeb00c31bc
