@@ -70,6 +70,11 @@
 		<%= image_tag "Fisch/#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
 	</div>
 	<div>
+		<div id="edit">
+		  <% if current_user.id == @profil.id %>
+		  	<%= link_to "Neuer Fisch", "/profile/new" %>
+		  <% end %>
+		</div>
 		<table id="tableID">
 			<colgroup>
 				<col>

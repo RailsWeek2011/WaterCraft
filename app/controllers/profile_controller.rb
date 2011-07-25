@@ -23,6 +23,11 @@ class ProfileController < ApplicationController
   end
   
   def new
+  	f = current_user.fish_id
+  	unless f.nil?
+  		(Fish.find f).destroy
+  	end
+  	
   	dirname = "app/assets/images/Fisch"
   	dir = Dir.new(dirname)
   	@entries = []

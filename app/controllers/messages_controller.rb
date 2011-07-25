@@ -40,7 +40,7 @@ class MessagesController < ApplicationController
   
   def edit
     @m1 = Message.find params[:id]
-    @m = Message.new :to_name => (User.find @m1.from_id).nick, :body => @m1.body
+    @m = Message.new :to_name => (User.find @m1.from_id).nick, :body => @m1.body, :betreff => "Re: #{@m1.betreff}"
   end
 
 end

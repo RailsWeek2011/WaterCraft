@@ -1,16 +1,5 @@
 WaterCraft::Application.routes.draw do
 
-  	#get "messages/index"
-
-  	#match "messages/show/:id" => "messages#show"
-
-  	#get "messages/new/:id" => "messages#new"
-  	
-  	#get "messages/new" => "messages#new"
-  	#post "messages/create" => "messages#create"
-  	
-  	#delete "messages/delete/:id" => "messages#delete"
-
 	resources :messages
 
   	devise_for :users, :controllers => { :registrations => "registrations" }
@@ -24,6 +13,17 @@ WaterCraft::Application.routes.draw do
 	get "/profile/create/:id" => "profile#create"
 	get "/profile/new" => "profile#new"
 
+
+  	#get "messages/index"
+
+  	#match "messages/show/:id" => "messages#show"
+
+  	#get "messages/new/:id" => "messages#new"
+  	
+  	#get "messages/new" => "messages#new"
+  	#post "messages/create" => "messages#create"
+  	
+  	#delete "messages/delete/:id" => "messages#delete"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
