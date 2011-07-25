@@ -23,9 +23,11 @@ class ProfileController < ApplicationController
   end
   
   def new
-  	f = current_user.fish_id
-  	unless f.nil?
-  		(Fish.find f).destroy
+  	f = current_user
+  	unless f.fish_id.nil?
+  		(Fish.find f.fish_id).destroy
+  		f.fish_id = nil
+  		f.save
   	end
   	
   	dirname = "app/assets/images/Fisch"

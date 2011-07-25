@@ -72,7 +72,7 @@
 	<div>
 		<div id="edit">
 		  <% if current_user.id == @profil.id %>
-		  	<%= link_to "Neuer Fisch", "/profile/new" %>
+		  	<%= link_to "Neuer Fisch", "/profile/new", :confirm => "Willst du wirklich deinen eigenen Fisch töten?" %>
 		  <% end %>
 		</div>
 		<table id="tableID">
