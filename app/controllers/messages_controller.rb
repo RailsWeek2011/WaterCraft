@@ -37,5 +37,10 @@ class MessagesController < ApplicationController
       render action: "new"#/#{@m.id}"
     end
   end
+  
+  def edit
+    @m1 = Message.find params[:id]
+    @m = Message.new :to_name => (User.find @m1.from_id).nick, :body => @m1.body
+  end
 
 end

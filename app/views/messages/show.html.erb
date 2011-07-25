@@ -17,7 +17,7 @@
   
   <div id="actions">
   
-    <%= link_to "Antworten", "/messages/new" %>
+    <%= link_to "Antworten", "/messages/#{@m.id}/edit" %>
     &nbsp;|&nbsp;
     <%= link_to "Löschen", "/messages/#{@m.id}", :method => "delete" %>
   
