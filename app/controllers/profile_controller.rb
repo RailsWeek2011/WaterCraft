@@ -14,7 +14,7 @@ class ProfileController < ApplicationController
 
 		if @f.save
 			u = User.find current_user.id
-			u.fish_id = @f
+			u.fish_id = @f.id
 			u.save
 		    redirect_to "/profile/show/#{current_user.id}"
 		else
