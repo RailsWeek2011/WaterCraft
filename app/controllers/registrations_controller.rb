@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
 		set_flash_message :notice, :destroyed
 		sign_out_and_redirect(resource)
   	end
+  	
   protected
 
 	def after_sign_up_path_for(resource)

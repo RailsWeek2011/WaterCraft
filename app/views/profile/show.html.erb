@@ -3,15 +3,17 @@
 <div id="profile_body">
 	<h3>
 		<%= @profil.nick %>s Profil
-		<% if current_user.id == @profil.id %>
-		 | <%= link_to "Profil editieren", "/users/edit" %>
-		<% end %>
 	</h3>
 	<div id="img">
 			<%= image_tag "#{@profil.image}", :height => 260, :id => "Bild" if @profil.image? %>
 			<%= image_tag "Common/JohnDoe.jpg", :height => 260, :id => "Bild" unless @profil.image? %>
 	</div>
 	<div>
+		<div id="edit">
+		  <% if current_user.id == @profil.id %>
+		  	<%= link_to "Profil editieren", "/users/edit" %>
+		  <% end %>
+		</div>
 		<table id="tableID">
 			<colgroup>
 				<col>
