@@ -1,6 +1,12 @@
 WaterCraft::Application.routes.draw do
 	
 
+  get "messages/index"
+
+  get "messages/show"
+
+  get "messages/new"
+
   	devise_for :users, :controllers => { :registrations => "registrations" }
   	
 	root :to => "Index#index"

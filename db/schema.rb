@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110722141156) do
+ActiveRecord::Schema.define(:version => 20110725084151) do
 
   create_table "fish", :force => true do |t|
     t.string   "name",       :default => "Peter"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20110722141156) do
     t.integer  "lvl",        :default => 1
     t.integer  "hp",         :default => 6
     t.integer  "exp",        :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
