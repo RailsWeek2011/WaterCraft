@@ -1,12 +1,12 @@
-Projekt Name	: WaterCraft
+Projekt Name    : WaterCraft
 
-Benutzte Gems	: devise
+Benutzte Gems   : devise
                   carrierwave
 
-Autoren			: Kretsch, Markus Benjamin
+Autoren         : Kretsch, Markus Benjamin
                   Zey, Frank Kevin
 
-Features		: #1 Benutzerverwaltung
+Features        : #1 Benutzerverwaltung
                   #2 Skillmanagement
                   #3 PN-System
                   #4 Ranking-System
