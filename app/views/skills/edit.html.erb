@@ -53,7 +53,7 @@
 				<% @s.each do |s| %>
 					<% if s.lvl == i*5+5 %>
 							<td>
-								<div id = "name"><%=s.name %><div id = "show">test</div></div>
+								<div id = "name"><%=s.name %><div id = "show"><%= s.beschreibung %></div></div>
 									<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
 										<button type="button" name="Inc<%= s.id%>" value="-" onclick="dec(<%= s.id%>)">-</button>								
 									<% end %>

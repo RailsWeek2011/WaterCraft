@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20110725170921) do
     t.string   "name"
     t.integer  "race"
     t.integer  "lvl"
+    t.text     "beschreibung"
     t.string   "when"
     t.datetime "created_at"
     t.datetime "updated_at"

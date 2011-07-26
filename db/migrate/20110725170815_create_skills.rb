@@ -4,6 +4,7 @@ class CreateSkills < ActiveRecord::Migration
       t.string :name
       t.integer :race
       t.integer :lvl
+      t.text :beschreibung
       t.string :when
 
       t.timestamps
