@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110725084151) do
+ActiveRecord::Schema.define(:version => 20110725170921) do
 
   create_table "fish", :force => true do |t|
     t.string   "name",       :default => "Peter"
@@ -27,12 +27,32 @@ ActiveRecord::Schema.define(:version => 20110725084151) do
     t.datetime "updated_at"
   end
 
+  create_table "fish_skills", :force => true do |t|
+    t.integer  "fish_id"
+    t.integer  "skill_id"
+    t.integer  "points"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fish_skills", ["fish_id"], :name => "index_fish_skills_on_fish_id"
+  add_index "fish_skills", ["skill_id"], :name => "index_fish_skills_on_skill_id"
+
   create_table "messages", :force => true do |t|
     t.integer  "from_id"
     t.integer  "to_id"
     t.text     "body"
     t.string   "betreff"
     t.string   "to_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "skills", :force => true do |t|
+    t.string   "name"
+    t.integer  "race"
+    t.integer  "lvl"
+    t.string   "when"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

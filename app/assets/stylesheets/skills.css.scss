@@ -1,0 +1,27 @@
+// Place all the styles related to the Skills controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.skills {
+  // Add the skills class to your body tag
+  // Then, place scoped styles here.
+}
+
+div#skills {
+	padding: 20px 20px 20px 20px;
+}
+
+div#show {
+	display: none;
+}
+
+div#name:hover div#show {
+    margin: 0; padding: 0;
+	position:fixed;
+	display: block;
+	bottom: 0px;
+	right: 0px;
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}

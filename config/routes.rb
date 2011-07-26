@@ -1,5 +1,9 @@
 WaterCraft::Application.routes.draw do
 
+	
+	get "/skills/edit" => "skills#edit"
+	post "/skills/update" => "skills#update"
+	
 	resources :messages
 
   	devise_for :users, :controllers => { :registrations => "registrations" }
@@ -14,6 +18,10 @@ WaterCraft::Application.routes.draw do
 	get "/profile/new" => "profile#new"
 
 
+
+  #get "skills/edit"
+  #get "skills/show"
+  
   	#get "messages/index"
 
   	#match "messages/show/:id" => "messages#show"

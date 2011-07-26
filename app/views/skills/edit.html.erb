@@ -1,0 +1,86 @@
+<div id = "skills">
+	<h3>Skills</h3>
+	
+	<script type="text/javascript">
+		var peter = <%= (Fish.find current_user.fish_id).lvl-5 %>;
+		function inc(i) {
+			if(peter > used()) {
+				ob = document.getElementById("points[" + i + "]");
+				ob.value = parseInt(ob.value) + 1;
+			}
+			getAnz()
+		}
+	
+		function dec(i) {
+			ob = document.getElementById("points[" + i + "]");
+			if (parseInt(ob.value) != 0) {
+				ob.value = parseInt(ob.value) - 1;
+			}
+			getAnz()
+		}
+	
+		function used() {
+			ob = document.forms[0].elements;
+			var summ = 0;
+			for (var i = 0; i < ob.length; i++) {
+				if(ob[i].type == "text") {
+					summ += parseInt(ob[i].value);
+				}
+			}
+			return summ;
+		}
+		
+		function getAnz() {
+			var tmp = peter - used();
+			if(tmp < 0) {
+				document.getElementById("Anzahl").innerHTML = "0";
+			} else {
+				document.getElementById("Anzahl").innerHTML = tmp;
+			}
+		}
+	</script>
+	
+	<%= form_tag(:controller => "skills", :action => "update", :method => "post") do %>
+	
+	<table id="tableID">
+		<tr>
+			<th>Level</th>
+			<th>Fähigkeiten | <a id = "Anzahl"></a></th>
+		</tr>
+		<% 12.times do |i| %>
+			<tr>
+				<td><%=i*5+5 %></td>
+				<% @s.each do |s| %>
+					<% if s.lvl == i*5+5 %>
+							<td>
+								<div id = "name"><%=s.name %><div id = "show">test</div></div>
+									<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
+										<button type="button" name="Inc<%= s.id%>" value="-" onclick="dec(<%= s.id%>)">-</button>								
+									<% end %>
+									
+									<% unless (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.nil? %> 
+										<input type="text" size="3" maxlength="3" value = <%= (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.points %> name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
+									<% else %> 
+										<input type="text" size="3" maxlength="3" value = 0 name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
+									<% end %>
+									
+									<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
+										<button type="button" name="Dec<%= s.id%>" value="+" onclick="inc(<%= s.id%>)">+</button>
+									<% end %>
+									
+								</td>
+					<% end %>
+				<% end %>
+			</tr>
+		<% end %>
+		
+	</table>
+    <%= submit_tag "Speichern" %>
+    <% end %>
+
+</div>
+
+
+<script type="text/javascript">
+	getAnz();
+</script>
