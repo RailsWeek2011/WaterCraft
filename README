@@ -1,13 +1,20 @@
-Projekt Name	: 	WaterCraft
+Projekt Name    : WaterCraft
 
-Benutzte Gems	:	devise
-					carrierwave
+Benutzte Gems   : devise
+                  carrierwave
 
-Autoren			:	Kretsch, Markus Benjamin
-					Zey, Frank Kevin
+Autoren         : Kretsch, Markus Benjamin
+                  Zey, Frank Kevin
 
-Features		:	#1	Benutzerverwaltung
-					#2	Skillmanagement
-					#3	PN-System
-					#4	Ranking-System
-					#5	Kampf-System
+Features        : #1 Benutzerverwaltung
+                  #2 Skillmanagement
+                  #3 PN-System
+                  #4 Ranking-System
+                  #5 Kampf-System
+
+Beschreibung
+WaterCraft ist ein Online-Browsergame, welches sich mit illegal Kämpfen zwischen
+verschiedenen Wasserbewohnern befasst. Der User kann sein eigen Fisch erstellen,
+diesen trainieren und gegen andere Fische anderer Spieler kämpfen lassen. Die 
+Fische gewinnen bei jedem gewonnen Kampf an Erfahrung und steigen in
+verschiedenen Level auf, gewinnen an Kampfskills und werden Stärker.

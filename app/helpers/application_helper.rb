@@ -36,7 +36,6 @@ module ApplicationHelper
 				return "Qualle"
 			when 15
 				return "Anglerfisch"
-			when 16
 			else
 				return "Peter"
 		end
@@ -46,4 +45,13 @@ module ApplicationHelper
 	def getHP lvl, con, str, dex
 		return 2 * lvl + 2 * con + str + dex
 	end
+	
+	def getQ user
+		i = 0
+		unless user.lose > 0
+			i = user.win + user.lose
+		end
+		return i
+	end
+	
 end

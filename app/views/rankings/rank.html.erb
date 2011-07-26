@@ -1,0 +1,74 @@
+<div id="ranking" >
+	
+	<h2>Ranking</h2>
+	
+	<div id="rank_body" >
+	
+		<table id="ranking_table" >
+			<colgroup>
+				<col width="25px"><!-- Rank -->
+				<col><!-- Username -->
+				<col><!-- Fisch -->
+				<col><!-- EXP -->
+				<col><!-- LVL -->
+				<col><!-- Kämpfe -->
+				<col><!-- Quote -->
+			</colgroup>
+			<tr>
+				<td>
+					<b>#</b>
+				</td>
+				<th>
+					Username
+				</th>
+				<th>
+					Fisch
+				</th>
+				<th>
+					<%= link_to "Erfahrung", "/rankings/rank/1" %>
+				</th>
+				<th>
+					<%= link_to "Level", "/rankings/rank/2" %>
+				</th>
+				<th>
+					Kämpfe
+				</th>
+				<th>
+					Siegquote
+				</th>
+			</tr>
+	<% unless @f.size == 0 %>
+		<% i = 0 %>
+		<% @f.each do |fish| %>
+			<% i += 1 %>
+			<% u = (User.where :fish_id => fish.id).first %>
+			<tr>
+				<td>
+					<%= i %>
+				</td>
+				<td>
+					<%= u.nick %>
+				</td>
+				<td>
+					<%= getRaceName(fish.race) %>
+				</td>
+				<td>
+					<%= fish.exp %>
+				</td>
+				<td>
+					<%= fish.lvl %>
+				</td>
+				<td>
+					<%= (u.win + u.lose) %>
+				</td>
+				<td>
+					<%= getQ(u) %>
+				</td>
+			</tr>
+		<% end %>
+		</table>
+	
+	</div>
+	<% end %>
+
+</div>

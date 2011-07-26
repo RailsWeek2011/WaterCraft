@@ -1,4 +1,6 @@
 WaterCraft::Application.routes.draw do
+	
+	get "/rankings/rank/:id" => "rankings#rank"
 
 	
 	get "/skills/edit" => "skills#edit"
