@@ -2,17 +2,26 @@
 
 	<h2>Wähle deinen Fisch</h2>
 	
-	<div id = "Bilder" >
+	<form action = "create" method = "get">
+		<div id = "fisch_nick">
+			Name deines Fisches: <input type = "text" name = "nick" >
+		</div>
+		<div id = "Bilder" >
 			
-			<% @entries.each do |e| %>
+				<% @entries.each do |e| %>
 	
-				<div id = "element">
-					<%= image_tag "#{e}", :height => 150, :id => "Bild" %><br>
-					<% e["Fisch/"] = "" %>
-					<% e[".jpg"] = "" %>
-					<%= link_to getRaceName(e.to_i), "create/#{e.to_i}", :method => :get %>
-				</div>
+					<div id = "element">
+						<%= image_tag "#{e}", :height => 150, :id => "Bild" %><br>
+						<% e["Fisch/"] = "" %>
+						<% e[".jpg"] = "" %>
+						<input type="radio" name="race" value="<%=e.to_i %>"> <%= getRaceName(e.to_i) %>
+					</div>
 			
-			<% end %>
-	</div>
+				<% end %>
+		</div>
+		<div id = "submit">
+		<input type = "submit" id="button" >
+		</div>
+	</form>
+	
 </div>

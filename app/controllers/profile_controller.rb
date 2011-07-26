@@ -20,7 +20,7 @@ class ProfileController < ApplicationController
   			end
   		end
   
-    	@f = Fish.new :race => params[:id]
+    	@f = Fish.new :race => params[:race], :name => params[:nick]
 
 		if @f.save
 			u = User.find current_user.id
