@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-	before_filter :authenticate_user!, :except => "Index#index"
-
   protect_from_forgery
   before_filter :authenticate_user!, :except => "Index#index" 
   

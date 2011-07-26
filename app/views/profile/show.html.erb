@@ -73,7 +73,11 @@
 		<div id="edit">
 		  <% if current_user.id == @profil.id %>
 		  	<%= link_to "Neuer Fisch", "/profile/new", :confirm => "Willst du wirklich deinen eigenen Fisch töten?" %>
-		  	| <%= link_to "Skillpunkte editieren", "/skills/edit" %>
+		  	| <%= link_to "Skillpunkte editieren", "/skills/edit" %> 
+		  	| <%= link_to "Trainiere deinen Fisch", "/fight/train" %>
+		  <% end %>
+		  <% unless (current_user.id == @profil.id && (Fish.find @profil.fish_id).first.nil? %>
+		    <%= link_to "Angreifen", "/fight/show/#{@profil.id}" %>
 		  <% end %>
 		</div>
 		<table id="tableID">
