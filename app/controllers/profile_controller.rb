@@ -9,6 +9,17 @@ class ProfileController < ApplicationController
   end
   
   def create
+  		current_user.fish_id = nil
+  		current_user.save
+  		
+  		@f = Fish.all
+  		@f.each do |s|
+  			@u = User.where :fish_id => s.id
+  			if @u.first.nil?
+  				s.destroy
+  			end
+  		end
+  
     	@f = Fish.new :race => params[:id]
 
 		if @f.save
@@ -22,12 +33,6 @@ class ProfileController < ApplicationController
   end
   
   def new
-  	f = current_user
-  	unless f.fish_id.nil?
-  		(Fish.find f.fish_id).destroy
-  		f.fish_id = nil
-  		f.save
-  	end
   	
   	dirname = "app/assets/images/Fisch"
   	dir = Dir.new(dirname)
