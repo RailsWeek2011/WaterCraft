@@ -48,10 +48,18 @@ module ApplicationHelper
 	
 	def getQ user
 		i = 0
-		unless user.lose > 0
-			i = user.win + user.lose
+		if 0 < (user.lose + user.win)
+			i = (user.win.to_f / (user.win + user.lose)).round_to(3)
 		end
 		return i
 	end
 	
+end
+
+class Float
+    def round_to(i)
+        f = (10 ** i).to_f
+        nr = self * f
+        return nr.round / f
+    end
 end

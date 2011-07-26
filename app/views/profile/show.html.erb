@@ -47,7 +47,7 @@
 				</th>
 				<td>
 					<% unless @anz == 0 %>
-						<%= @profil.win / @anz %>
+						<%= (@profil.win.to_f / @anz).round_to(3) %>
 					<% else %>
 						<%= 0 %>
 					<% end %>
@@ -75,8 +75,7 @@
 		  	<%= link_to "Neuer Fisch", "/profile/new", :confirm => "Willst du wirklich deinen eigenen Fisch töten?" %>
 		  	| <%= link_to "Skillpunkte editieren", "/skills/edit" %> 
 		  	| <%= link_to "Trainiere deinen Fisch", "/fight/train" %>
-		  <% end %>
-		  <% unless (current_user.id == @profil.id && (Fish.find @profil.fish_id).first.nil? %>
+		  <% else %>
 		    <%= link_to "Angreifen", "/fight/show/#{@profil.id}" %>
 		  <% end %>
 		</div>
