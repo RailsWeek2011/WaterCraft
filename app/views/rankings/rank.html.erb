@@ -40,8 +40,9 @@
 	<% unless @f.size == 0 %>
 		<% i = 0 %>
 		<% @f.each do |fish| %>
-			<% i += 1 %>
 			<% u = (User.where :fish_id => fish.id).first %>
+			<% unless u.nil? %>
+			<% i += 1 %>
 			<tr>
 				<td>
 					<%= i %>
@@ -65,6 +66,7 @@
 					<%= getQ(u) %>
 				</td>
 			</tr>
+			<% end %>
 		<% end %>
 		</table>
 	

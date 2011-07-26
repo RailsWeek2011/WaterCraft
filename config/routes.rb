@@ -1,5 +1,7 @@
 WaterCraft::Application.routes.draw do
 	
+  get "fight/show"
+
 	get "/rankings/rank/:id" => "rankings#rank"
 
 	
