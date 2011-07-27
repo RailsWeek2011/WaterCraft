@@ -23,6 +23,7 @@ class FightController < ApplicationController
   	if @defense_creature.hp <= 0
   		@log += "<br>#{@attack.nick}s Fish #{@attack_creature.fish.name} gewinnt!"
   		@attack.win += 1;
+  		@attack_creature.getExp 10
   		@defense.lose += 1;
   		@attack.save
   		@defense.save

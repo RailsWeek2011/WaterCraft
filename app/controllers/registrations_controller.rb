@@ -2,8 +2,16 @@ class RegistrationsController < Devise::RegistrationsController
   
     def destroy
     	f = Fish.find current_user.fish_id
+    	fs = FishSkill.where :fish_id => f.id
+    	
+    	fs.each do |fischskill|
+    		fischskill.destroy    	
+    	end
+    	
     	f.destroy
-    	File.delete("public/#{current_user.image}")
+    	unless current_user.file.nil?
+    		File.delete("public/#{current_user.image}")
+    	end
   		resource.destroy
 		set_flash_message :notice, :destroyed
 		sign_out_and_redirect(resource)

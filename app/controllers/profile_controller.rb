@@ -19,8 +19,13 @@ class ProfileController < ApplicationController
   				s.destroy
   			end
   		end
-  
-    	@f = Fish.new :race => params[:race], :name => params[:nick]
+  		
+  		@stat = getRaceStat params[:race].to_i
+  		if params[:nick] == ""
+  			params[:nick] = "Anonymous"
+  		end
+  		puts @stat[:dex]
+    	@f = Fish.new :race => params[:race], :name => params[:nick], :str => @stat[:str], :dex => @stat[:dex], :con => @stat[:con], :init => @stat[:init], :dev => @stat[:dev]
 
 		if @f.save
 			u = User.find current_user.id

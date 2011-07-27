@@ -1,14 +1,20 @@
-<div id = "skills">
-	<h3>Skills</h3>
-	
 	<script type="text/javascript">
 		var peter = <%= (Fish.find current_user.fish_id).lvl-5 %>;
+		var peter2 = <%= (Fish.find current_user.fish_id).lvl + 12  %>;
+		
 		function inc(i) {
 			if(peter > used()) {
 				ob = document.getElementById("points[" + i + "]");
 				ob.value = parseInt(ob.value) + 1;
-			}
+			} 
 			getAnz()
+		}
+		function incA(i) {
+			if(peter2 > usedA()) {
+				ob = document.getElementById("points[" + i + "]");
+				ob.value = parseInt(ob.value) + 1;
+			} 
+			getAnzA()
 		}
 	
 		function dec(i) {
@@ -18,69 +24,180 @@
 			}
 			getAnz()
 		}
+		
+		function decA(i) {
+			
+			ob = document.getElementById("points[" + i + "]");
+			if (parseInt(ob.value) != 0) {
+				if(i == "Str") {
+					if(parseInt(ob.value) > <%= @attr[:str] %> ) {
+						ob.value = parseInt(ob.value) - 1;
+					}
+				} else if(i == "Con") {
+					if(parseInt(ob.value) > <%= @attr[:con] %> ) {
+						ob.value = parseInt(ob.value) - 1;
+					}
+				} else if(i == "Dev") {
+					if(parseInt(ob.value) > <%= @attr[:dev] %> ) {
+						ob.value = parseInt(ob.value) - 1;
+					}
+				} else if(i == "Init") {
+					if(parseInt(ob.value) > <%= @attr[:init] %> ) {
+						ob.value = parseInt(ob.value) - 1;
+					}
+				} else if(i == "Dex") {
+					if(parseInt(ob.value) > <%= @attr[:dex] %> ) {
+						ob.value = parseInt(ob.value) - 1;
+					}
+				}
+			}
+			getAnzA()
+		}
 	
 		function used() {
 			ob = document.forms[0].elements;
 			var summ = 0;
 			for (var i = 0; i < ob.length; i++) {
-				if(ob[i].type == "text") {
+				if(ob[i].type == "text" && ob[i].name != "points[Str]" && ob[i].name != "points[Dev]" && ob[i].name != "points[Con]" && ob[i].name != "points[Init]" && ob[i].name != "points[Dex]" && ob[i].name != "name") {
 					summ += parseInt(ob[i].value);
 				}
 			}
-			return summ;
+			return summ ;
+		}
+		
+		function usedA() {
+			ob = document.forms[0].elements;
+			var summ = 0;
+			for (var i = 0; i < ob.length; i++) {
+				if(ob[i].type == "text") {
+					if(ob[i].name == "points[Str]" || ob[i].name == "points[Dev]" || ob[i].name == "points[Con]" || ob[i].name == "points[Init]" || ob[i].name == "points[Dex]") {
+						summ += parseInt(ob[i].value);
+					}
+				}
+			}
+			return summ ;
 		}
 		
 		function getAnz() {
 			var tmp = peter - used();
-			if(tmp < 0) {
-				document.getElementById("Anzahl").innerHTML = "0";
+			if(tmp <= 0) {
+				document.getElementById("Anzahl2").innerHTML = "0";
 			} else {
-				document.getElementById("Anzahl").innerHTML = tmp;
+				document.getElementById("Anzahl2").innerHTML = tmp;
+			}
+		}
+		
+		function getAnzA() {
+			var tmp = peter2 - usedA();
+			if(tmp < 0) {
+				document.getElementById("Anzahl1").innerHTML = "0";
+			} else {
+				document.getElementById("Anzahl1").innerHTML = tmp;
 			}
 		}
 	</script>
 	
-	<%= form_tag(:controller => "skills", :action => "update", :method => "post") do %>
-	
-	<table id="tableID">
-		<tr>
-			<th>Level</th>
-			<th>Fähigkeiten | <a id = "Anzahl"></a></th>
-		</tr>
-		<% 12.times do |i| %>
-			<tr>
-				<td><%=i*5+5 %></td>
-				<% @s.each do |s| %>
-					<% if s.lvl == i*5+5 %>
-							<td>
-								<div id = "name"><%=s.name %><div id = "show"><%= s.beschreibung %></div></div>
-									<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
-										<button type="button" name="Inc<%= s.id%>" value="-" onclick="dec(<%= s.id%>)">-</button>								
-									<% end %>
-									
-									<% unless (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.nil? %> 
-										<input type="text" size="3" maxlength="3" value = <%= (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.points %> name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
-									<% else %> 
-										<input type="text" size="3" maxlength="3" value = 0 name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
-									<% end %>
-									
-									<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
-										<button type="button" name="Dec<%= s.id%>" value="+" onclick="inc(<%= s.id%>)">+</button>
-									<% end %>
-									
-								</td>
-					<% end %>
-				<% end %>
-			</tr>
-		<% end %>
-		
-	</table>
-    <%= submit_tag "Speichern" %>
-    <% end %>
+<%= form_tag(:controller => "skills", :action => "update", :method => "post") do %>
 
-</div>
+	<div id = "nick">
+		<h3>Fisch Editieren</h3>
+		Nick:&nbsp;
+		<input type = "text" value = "<%=@a.name %>" name = "name" >
+	</div>
+
+	<div id = "attribute">
+		<h3>Attribute</h3>
+		
+		<table id="tableID">
+			<tr>
+				<th>Attribut</th>
+				<th>Wert | <a id = "Anzahl1"></a></th>
+			</tr>
+			<tr>
+				<td>Stärke</td>
+				<td>
+					<button type="button" name="IncStr" value="-" onclick="decA('Str')">-</button>				 
+					<input type="text" size="3" maxlength="3" value = <%= @a.str %> name="points[Str]" id="points[Str]" readonly>		
+					<button type="button" name="DecStr" value="+" onclick="incA('Str')">+</button>		
+				</td>
+			</tr>
+			<tr>
+				<td>Verteidigung</td>
+				<td>
+					<button type="button" name="IncDev" value="-" onclick="decA('Dev')">-</button>				 
+					<input type="text" size="3" maxlength="3" value = <%= @a.dev %> name="points[Dev]" id="points[Dev]" readonly>		
+					<button type="button" name="DecDev" value="+" onclick="incA('Dev')">+</button>		
+				</td>
+			</tr>
+			<tr>
+				<td>Kondition</td>
+				<td>
+					<button type="button" name="IncCon" value="-" onclick="decA('Con')">-</button>				 
+					<input type="text" size="3" maxlength="3" value = <%= @a.con %> name="points[Con]" id="points[Con]" readonly>		
+					<button type="button" name="DecCon" value="+" onclick="incA('Con')">+</button>		
+				</td>
+			</tr>
+			<tr>
+				<td>Initiative</td>
+				<td>
+					<button type="button" name="IncInit" value="-" onclick="decA('Init')">-</button>				 
+					<input type="text" size="3" maxlength="3" value = <%= @a.init %> name="points[Init]" id="points[Init]" readonly>		
+					<button type="button" name="DecInit" value="+" onclick="incA('Init')">+</button>		
+				</td>
+			</tr>
+			<tr>
+				<td>Geschicklichkeit</td>
+				<td>
+					<button type="button" name="IncDex" value="-" onclick="decA('Dex')">-</button>				 
+					<input type="text" size="3" maxlength="3" value = <%= @a.dex %> name="points[Dex]" id="points[Dex]" readonly>		
+					<button type="button" name="DecDex" value="+" onclick="incA('Dex')">+</button>		
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id = "skills">
+		<h3>Skills</h3>
+		
+		<table id="tableID">
+			<tr>
+				<th>Level</th>
+				<th>Fähigkeiten | <a id = "Anzahl2"></a></th>
+			</tr>
+			<% 12.times do |i| %>
+				<tr>
+					<td><%=i*5+5 %></td>
+					<% @s.each do |s| %>
+						<% if s.lvl == i*5+5 %>
+								<td>
+									<div id = "name"><%=s.name %><div id = "show"><%= s.beschreibung %></div></div>
+										<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
+											<button type="button" name="Inc<%= s.id%>" value="-" onclick="dec(<%= s.id%>)">-</button>								
+										<% end %>
+									
+										<% unless (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.nil? %> 
+											<input type="text" size="3" maxlength="3" value = <%= (FishSkill.where :fish_id => current_user.fish_id, :skill_id => s.id).first.points %> name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
+										<% else %> 
+											<input type="text" size="3" maxlength="3" value = 0 name="points[<%= s.id%>]" id="points[<%= s.id%>]" readonly>
+										<% end %>
+									
+										<% if s.lvl <= (Fish.find current_user.fish_id).lvl %>
+											<button type="button" name="Dec<%= s.id%>" value="+" onclick="inc(<%= s.id%>)">+</button>
+										<% end %>
+									
+									</td>
+						<% end %>
+					<% end %>
+				</tr>
+			<% end %>
+		
+		</table>
+		<%= submit_tag "Speichern" %>
+
+	</div>
+<% end %>
 
 
 <script type="text/javascript">
 	getAnz();
+	getAnzA();
 </script>

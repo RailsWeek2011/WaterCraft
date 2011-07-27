@@ -13,6 +13,11 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp
 		@hp = @fish.hp
 		@turn	= false
 	end
+	
+	def getExp i
+		@fish.exp += 10
+		@fish.save
+	end
 
 	def chooseBeginner def_creature
 		d = fish.init - def_creature.fish.init
