@@ -89,7 +89,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 				skills += [ "#{tmp.first.name}" ]
 			end
 		end
-		puts skills
 		att = skills[rand(skills.size)]
 		if att == "Tackle"
 			dmg = dmg -red
@@ -110,7 +109,13 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 			return log
+		elsif att == "Gift"
+			dmg = (dmg - red)/2
+			def_creature.hp -= dmg
+			
+			log = "#{@fish.name}"
 		end
+		return log
 	end
 	
 	def preCondition
