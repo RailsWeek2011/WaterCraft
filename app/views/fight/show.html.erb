@@ -3,11 +3,13 @@
 	<div id="attack">
 		<%= @attack.nick %>s Fish<br>
 		<%= image_tag "#{@attack_creature.fish.race}.jpg", :height => 150, :id => "Bild" %><br>
+		<%= (Fish.find @attack.fish_id).name %><br>
 	</div>
 	
 	<div id="defense">
 		<%= @defense.nick %>s Fish<br>
 		<%= image_tag "#{@defense_creature.fish.race}.jpg", :height => 150, :id => "Bild" %><br>
+		<%= (Fish.find @defense.fish_id).name %><br>
 	</div>
 	
 	<div id="protocol">
