@@ -107,8 +107,8 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 			def_creature.hp -= dmg*3
 			
 			log = "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
-			log =+ "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
-			log =+ "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
+			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
+			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 			return log
 		end
 	end
