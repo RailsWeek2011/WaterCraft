@@ -24,7 +24,6 @@ class ProfileController < ApplicationController
   		if params[:nick] == ""
   			params[:nick] = "Anonymous"
   		end
-  		puts @stat[:dex]
     	@f = Fish.new :race => params[:race], :name => params[:nick], :str => @stat[:str], :dex => @stat[:dex], :con => @stat[:con], :init => @stat[:init], :dev => @stat[:dev]
 
 		if @f.save

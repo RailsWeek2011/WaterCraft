@@ -4,12 +4,15 @@ module FightHelper
 end
 
 class Creature
-attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
+attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :wuerg
 	def initialize fish
 	  	@fish 	= fish
 		@blut   = 0
 		@gift   = 0
+		@anzahl = 0
 		@para  	= 0
+		@hart   = 0
+		@wuerg 	= 0
 		@hp = @fish.hp
 		@turn	= false
 		@reduce = 1
@@ -62,18 +65,41 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 	end
 	
 	def attack def_creature
-		if def_creature.dodge <= 0
+		if @para != 0
+			return "#{def_creature.fish.name} kann nicht handeln"
+		elsif def_creature.dodge <= 0
 			return "#{def_creature.fish.name} ist ausgewichen"
 		elsif miss <= 0
 			return "#{@fish.name} hat verfehlt"
-		elsif @para != 0
-			return "#{def_creature.fish.name} kann nicht handeln"
+		elsif @wuerg != 0
+			if rand(@wuerg - @fish.init/3) == 0
+				@wuerg = 0
+			else
+				return "#{def_creature.fish.name} kann nicht handeln ist im würgegriff"
+			end
 		else
+			if def_creature.anzahl > 0
+				if rand(def_creature.anzahl+1) == 0
+					def_creature.anzahl = 0
+				else
+					def_creature_anzahl -= 1
+					return "#{@fish.name} greift den falschen an<br>"
+				end
+			end
 			log = def_creature.hitedCondition self
 			self.hitCondition def_creature
 			red = (def_creature.reduce + def_creature.fish.dev*2)/2
 			att = @fish.str + 1
-			log += self.selectAttack def_creature, att, red
+			if def_creature.hart
+				red /= 2
+				def_creature.hart -= 1
+			end
+			if def_creature.wuerg != 0
+				defense_creature.hp -= 4
+				log += "#{@fish.name} würgt #{defense_creature.fish.name} und verliert 4 HP"
+			else
+				log += self.selectAttack def_creature, att, red
+			end
 			return log
 		end
 	end
@@ -85,40 +111,128 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		fs.each do |s|
 			tmp = Skill.where :id => s.skill_id, :when => "att"
 			unless tmp.first.nil?
-				skills += [ "#{tmp.first.name}" ]
+				if tmp.first.name == "Meucheln"
+					if def_creature.hp <= def_creature.fish.hp/2
+						skills += [ "#{tmp.first.name}" ]
+					end
+				else
+					skills += [ "#{tmp.first.name}" ]
+				end
 			end
 		end
 		att = skills[rand(skills.size)]
 		if att == "Tackle"
 			dmg = dmg -red
 			if dmg <= 0 
-				dmg = 0
+				dmg = 1
 			end
 			def_creature.hp -= dmg
-			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
 		elsif att == "Blitz"
 			dmg = dmg
-			if dmg <= 0 
-				dmg = 0
+			if rand(3) == 0
+				def_creature.para = 1
 			end
 			def_creature.hp -= dmg
-			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
 		elsif att == "Vergeltung"
-			dmg = dmg - red - 6
+			dmg = dmg - red - 8
 			if dmg <= 0 
-				dmg = 0
+				dmg = 1
 			end
 			def_creature.hp -= dmg*3
 			
-			log = "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
-			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
-			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
+			log = "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+			log += "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
 			return log
 		elsif att == "Gift"
-			dmg = (dmg - red)/2
+			dmg = (dmg - red)/3
+			if dmg <= 0 
+				dmg = 1
+			end
 			def_creature.hp -= dmg
+			def_creature.gift = 1
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Flossenhieb"
+			dmg = dmg - red + 1
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			if rand(3) == 0
+				def_creature.para = 1
+			end
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Wunden lecken"
+			@hp += @fish.hp/4	
+			return "{@fish.name} #{att} und erhält #{@fish.hp/4} HP zurück<br>"
+		elsif att == "Täuschung"
+			@anzahl = 1
+			return "{@fish.name} erschafft 1 Ebenbild"
+		elsif att == "Biss"
+			dmg = dmg - red + 1
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Meucheln"
+			dmg = dmg*2
+			def_creature.hp -= dmg
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Zerfleischen"
+			dmg = dmg*1.5
+			def_creature.hp -= dmg
+			def_creature.blut = 1
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab und lässt es bluten<br>"
+		elsif att == "Blenden"
+			dmg = dmg - red
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			if rand(3) == 0
+				def_creature.para = 1
+			end
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Schnapper"
+			dmg = dmg - red + 3
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			if rand(3) == 0
+				def_creature.para = 1
+			end
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Schlecken"
+			dmg = dmg - red + 2
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			if rand(3) == 0
+				def_creature.para = 1
+			end
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"
+		elsif att == "Erhärten"
+			@hart = 3
+			return "#{@fish.name} wird für die nächsten 3 Züge stärker<br>"
+		elsif att == "Zermalmen"
+			dmg = dmg*2 + 6
+			def_creature.hp -= dmg
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab<br>"			
+		elsif att == "Würgen"
 			
-			log = "#{@fish.name}"
+		elsif att == "Aufspießen"
+			dmg = dmg*2 - red
+			if dmg <= 0 
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			def_creature.blut = 1
+			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab und lässt es bluten<br>"
 		end
 		return log
 	end
@@ -156,7 +270,15 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 	end
 	
 	def postCondition
-		
+		if @gift != 0
+			@hp -= @gift
+			return "#{@fish.name} erleidet #{@gift} Schaden durch Gift<br>"
+		end
+		if @blut != 0
+			@hp -= @blut
+			return "#{@fish.name} erleidet #{@blut} Schaden durch Blutung<br>"
+		end
+		return ""
 	end
 	
 	def changeTurn def_creature

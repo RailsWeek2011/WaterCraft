@@ -19,7 +19,7 @@ class FightController < ApplicationController
   		else
   			@defense_creature.preCondition
   			@log += @defense_creature.attack @attack_creature
-  			@defense_creature.postCondition
+  			@log += @defense_creature.postCondition
   			@defense_creature.changeTurn @attack_creature
   		end
   			@log += "           #{@attack_creature.fish.name}(#{@attack_creature.hp})   #{@defense_creature.fish.name}(#{@defense_creature.hp})<br>"
@@ -32,10 +32,12 @@ class FightController < ApplicationController
   		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
   			puts nextLvl( @defense_creature.fish.lvl )
   			@defense_creature.fish.lvl += 1
+  			@defense_creature.fish.hp = getHP @defense_creature.fish.lvl, @defense_creature.fish.con, @defense_creature.fish.str, @defense_creature.fish.dex
   			@defense_creature.fish.save
   		end
   		if @attack_creature.fish.exp >= nextLvl( @attack_creature.fish.lvl )
   			@attack_creature.fish.lvl += 1
+  			@attack_creature.fish.hp = getHP @attack_creature.fish.lvl, @attack_creature.fish.con, @attack_creature.fish.str, @attack_creature.fish.dex
   			@attack_creature.fish.save
   		end
   		@attack.lose += 1
@@ -47,6 +49,7 @@ class FightController < ApplicationController
   		@attack_creature.getExp 10
   		if @attack_creature.fish.exp >= nextLvl( @attack_creature.fish.lvl )
   			@attack_creature.fish.lvl += 1
+  			@attack_creature.fish.hp = getHP @attack_creature.fish.lvl, @attack_creature.fish.con, @attack_creature.fish.str, @attack_creature.fish.dex
   			@attack_creature.fish.save
   		end
   		@attack.win += 1;
@@ -59,6 +62,7 @@ class FightController < ApplicationController
   		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
   			puts nextLvl( @defense_creature.fish.lvl )
   			@defense_creature.fish.lvl += 1
+  			@defense_creature.fish.hp = getHP @defense_creature.fish.lvl, @defense_creature.fish.con, @defense_creature.fish.str, @defense_creature.fish.dex
   			@defense_creature.fish.save
   		end
   		@attack.lose += 1;
