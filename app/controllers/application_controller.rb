@@ -44,4 +44,9 @@ class ApplicationController < ActionController::Base
 				return { :str => 1, :dev => 1, :con => 1, :init => 1, :dex => 1 }
 		end
 	end
+	
+	def getHP lvl, con, str, dex
+		return 2 * lvl + 2 * con + str + dex
+	end
+	
 end

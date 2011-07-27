@@ -35,6 +35,7 @@ class SkillsController < ApplicationController
   			f.first.save
 		end
   	end
+  	tmp.hp = getHP tmp.lvl, tmp.con, tmp.str, tmp.dex
 	tmp.save
   	
   	redirect_to "/skills/edit"

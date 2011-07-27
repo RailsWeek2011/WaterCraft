@@ -42,10 +42,6 @@ module ApplicationHelper
 
 	end
 	
-	def getHP lvl, con, str, dex
-		return 2 * lvl + 2 * con + str + dex
-	end
-	
 	def getQ user
 		i = 0
 		if 0 < (user.lose + user.win)
