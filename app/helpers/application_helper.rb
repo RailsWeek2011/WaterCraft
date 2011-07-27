@@ -50,14 +50,6 @@ module ApplicationHelper
 		return i
 	end
 	
-	def nextLvl lvl
-		exp = 0
-		lvl.times do
-			exp += 90
-		end
-		return exp
-	end
-	
 end
 
 class Float

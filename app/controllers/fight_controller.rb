@@ -29,6 +29,15 @@ class FightController < ApplicationController
   		@log += "<br> Uentschieden"
   		@attack_creature.getExp 5
   		@defense_creature.getExp 5
+  		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
+  			puts nextLvl( @defense_creature.fish.lvl )
+  			@defense_creature.fish.lvl += 1
+  			@defense_creature.fish.save
+  		end
+  		if @attack_creature.fish.exp >= nextLvl( @attack_creature.fish.lvl )
+  			@attack_creature.fish.lvl += 1
+  			@attack_creature.fish.save
+  		end
   		@attack.lose += 1
   		@defense.lose += 1
   		@attack.save
@@ -36,6 +45,10 @@ class FightController < ApplicationController
   	elsif @defense_creature.hp <= 0
   		@log += "<br>#{@attack.nick}s Fish #{@attack_creature.fish.name} gewinnt!"
   		@attack_creature.getExp 10
+  		if @attack_creature.fish.exp >= nextLvl( @attack_creature.fish.lvl )
+  			@attack_creature.fish.lvl += 1
+  			@attack_creature.fish.save
+  		end
   		@attack.win += 1;
   		@defense.lose += 1;
   		@attack.save
@@ -43,12 +56,25 @@ class FightController < ApplicationController
   	else
   		@log += "<br>#{@defense.nick}s Fish #{@defense_creature.fish.name} gewinnt!"
   		@defense_creature.getExp 10
+  		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
+  			puts nextLvl( @defense_creature.fish.lvl )
+  			@defense_creature.fish.lvl += 1
+  			@defense_creature.fish.save
+  		end
   		@attack.lose += 1;
   		@defense.win += 1;
   		@attack.save
   		@defense.save
   	end
   	
+  end
+
+  def nextLvl lvl
+	exp = 0
+	lvl.times do
+		exp += 90
+	end
+	return exp
   end
 
 end
