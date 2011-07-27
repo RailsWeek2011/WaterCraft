@@ -12,13 +12,13 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		@para  	= 0
 		@hp = @fish.hp
 		@turn	= false
-		@reduce = 2
+		@reduce = 1
 		fs = FishSkill.where :fish_id => @fish.id
 		fs.each do |s|
 			tmp = Skill.where :id => s.skill_id, :when => "hited"
 			unless tmp.first.nil?
 				if tmp.first.name == "Dehnbarkeit"
-					@reduce = 3
+					@reduce = 2
 				end
 			end
 		end
@@ -54,7 +54,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 	end
 	
 	def dodge
-		return rand(20)-@fish.dex
+		return rand(20)-@fish.dex/5
 	end
 	
 	def miss
@@ -71,7 +71,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		else
 			log = def_creature.hitedCondition self
 			self.hitCondition def_creature
-			red = (def_creature.reduce * def_creature.fish.dev)/2
+			red = (def_creature.reduce + def_creature.fish.dev)/2
 			att = @fish.str + 1
 			log += self.selectAttack def_creature, att, red
 			return log
@@ -85,7 +85,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		fs.each do |s|
 			tmp = Skill.where :id => s.skill_id, :when => "att"
 			unless tmp.first.nil?
-				puts tmp.first.name
 				skills += [ "#{tmp.first.name}" ]
 			end
 		end
@@ -99,7 +98,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 			def_creature.hp -= dmg
 			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 		elsif att == "Vergeltung"
-			dmg -= red - 6
+			dmg = dmg - red - 6
 			if dmg <= 0 
 				dmg = 1
 			end
@@ -137,7 +136,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 					log += "<br>#{fish_attacker.fish.name} erleidet durch Aufladung 1nen Schaden"
 				elsif tmp.first.name == "Konter"
 					if rand(20) == 0
-						puts "test"
 						log += "<br>Konter:"
 						log += self.attack fish_attacker
 					end

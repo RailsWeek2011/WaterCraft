@@ -24,7 +24,7 @@ Skill.create :name => "Vergeltung", 			:race => 1, :lvl => 35, :beschreibung => 
 Skill.create :name => "Wunden lecken", 			:race => 1, :lvl => 45, :beschreibung => "Leckt die wunden und heilt sich um einen gewissen %Anteil", :when => "att"
 Skill.create :name => "Starke Verteidigung", 	:race => 2, :lvl => 5, :beschreibung => "Erhöht den Verteidigungswert stark"
 Skill.create :name => "Täuschung", 				:race => 2, :lvl => 15, :beschreibung => "Erschafft 3 Ebenbilder die der Gegner angreifen kann", :when => "att"
-Skill.create :name => "Vergeltung", 			:race => 2, :lvl => 35, :beschreibung => "Schlägt mehrmals mit verminderter Angriffskraft auf den Gegner ein"
+Skill.create :name => "Vergeltung", 			:race => 2, :lvl => 35, :beschreibung => "Schlägt mehrmals mit verminderter Angriffskraft auf den Gegner ein", :when => "att"
 Skill.create :name => "Dehnbarkeit", 			:race => 2, :lvl => 50, :beschreibung => "Reduziert den erhaltenen Schaden", :when => "hited"
 Skill.create :name => "Aufspießen", 			:race => 2, :lvl => 60, :beschreibung => "Starke Attacke die den Gegner Bluten lässt", :when => "att"
 Skill.create :name => "Erhöhtes Ausweichen", 	:race => 3, :lvl => 20, :beschreibung => "Erhöht die Ausweichchance"
