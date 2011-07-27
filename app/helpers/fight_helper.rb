@@ -71,7 +71,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		else
 			log = def_creature.hitedCondition self
 			self.hitCondition def_creature
-			red = (def_creature.reduce + def_creature.fish.dev)/2
+			red = (def_creature.reduce + def_creature.fish.dev*2)/2
 			att = @fish.str + 1
 			log += self.selectAttack def_creature, att, red
 			return log
@@ -91,16 +91,22 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce
 		att = skills[rand(skills.size)]
 		if att == "Tackle"
 			dmg = dmg -red
+			if dmg <= 0 
+				dmg = 0
+			end
 			def_creature.hp -= dmg
 			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 		elsif att == "Blitz"
 			dmg = dmg
+			if dmg <= 0 
+				dmg = 0
+			end
 			def_creature.hp -= dmg
 			return "#{@fish.name} #{att} #{def_creature.fish.name} und zieht ihm #{dmg} HP(#{red} Wiederstanden) ab#{log}"
 		elsif att == "Vergeltung"
 			dmg = dmg - red - 6
 			if dmg <= 0 
-				dmg = 1
+				dmg = 0
 			end
 			def_creature.hp -= dmg*3
 			
