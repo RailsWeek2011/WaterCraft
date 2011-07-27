@@ -4,7 +4,6 @@ WaterCraft::Application.routes.draw do
 	get "fight/train" => "fight#train"
 
 	get "/rankings/rank/:id" => "rankings#rank"
-
 	
 	get "/skills/edit" => "skills#edit"
 	post "/skills/update" => "skills#update"
@@ -14,6 +13,7 @@ WaterCraft::Application.routes.draw do
   	devise_for :users, :controllers => { :registrations => "registrations" }
   	
 	root :to => "Index#index"
+	get "/index/info" => "Index#info"
 	
 	get "/profile/show/:id" => "profile#show"
 	get "/profile/edit" => "profile#edit"

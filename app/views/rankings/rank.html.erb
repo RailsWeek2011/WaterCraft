@@ -11,7 +11,7 @@
 				<col><!-- Fisch -->
 				<col><!-- EXP -->
 				<col><!-- LVL -->
-				<col><!-- Kämpfe -->
+				<col><!-- Siege -->
 				<col><!-- Quote -->
 			</colgroup>
 			<tr>
@@ -31,46 +31,83 @@
 					<%= link_to "Level", "/rankings/rank/2" %>
 				</th>
 				<th>
-					Kämpfe
+					Siege
+					<%#= link_to "Siege", "/rankings/rank/3" %>
 				</th>
 				<th>
 					Siegquote
 				</th>
 			</tr>
 	<% unless @f.size == 0 %>
-		<% i = 0 %>
-		<% @f.each do |fish| %>
-			<% u = (User.where :fish_id => fish.id).first %>
-			<% unless u.nil? %>
-			<% i += 1 %>
-			<tr>
-				<td>
-					<%= i %>
-				</td>
-				<td>
-					<%= u.nick %>
-				</td>
-				<td>
-					<%= getRaceName(fish.race) %>
-				</td>
-				<td>
-					<%= fish.exp %>
-				</td>
-				<td>
-					<%= fish.lvl %>
-				</td>
-				<td>
-					<%= (u.win + u.lose) %>
-				</td>
-				<td>
-					<%= getQ(u) %>
-				</td>
-			</tr>
+		<% unless @f.nil? %>
+			<% i = 0 %>
+			<% @f.each do |fish| %>
+				<% user = (User.where :fish_id => fish.id).first %>
+				<% unless user.nil? %>
+				<% i += 1 %>
+				<tr>
+					<td>
+						<%= i %>
+					</td>
+					<td>
+						<%= user.nick %>
+					</td>
+					<td>
+						<%= getRaceName(fish.race) %>
+					</td>
+					<td>
+						<%= fish.exp %>
+					</td>
+					<td>
+						<%= fish.lvl %>
+					</td>
+					<td>
+						<%= user.win %>
+					</td>
+					<td>
+						<%= getQ(user) %>
+					</td>
+				</tr>
+				<% end %>
 			<% end %>
-		<% end %>
-		</table>
-	
-	</div>
-	<% end %>
+		
+		<% else %>
 
+			<% i = 0 %>
+			<% @u.each do |user| %>
+			  <% unless user.fish_id.nil? %>
+				<% fish = (Fish.find user.fish_id).first %>
+				<% unless fish.nil? %>
+					<% i += 1 %>
+					<tr>
+						<td>
+							<%= i %>
+						</td>
+						<td>
+							<%= user.nick %>
+						</td>
+						<td>
+							<%= getRaceName(fish.race) %>
+						</td>
+						<td>
+							<%= fish.exp %>
+						</td>
+						<td>
+							<%= fish.lvl %>
+						</td>
+						<td>
+							<%= user.win %>
+						</td>
+						<td>
+							<%= getQ(user) %>
+						</td>
+					</tr>
+				<% end %>
+			  <% end %>
+			<% end %>
+		</table>
+	</div>
+		<% end %>
+	<% end %>
+		
 </div>
