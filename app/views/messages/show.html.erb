@@ -12,7 +12,7 @@
   
     <b>Nachricht</b><br>
     <% if @m.from_id < 3 %>
-    	<%= simple_format(@m.body) %>
+    	<%= raw @m.body %>
     <% else %>
     	<%= @m.body %>
     <% end %>

@@ -2,7 +2,7 @@ class FightController < ApplicationController
   def show
   	@attack = current_user
   	@defense = User.find params[:id]
-  	@log = ""
+  	@log = "<table id = 'fight'>"
   	
   	@attack_creature = Creature.new ( Fish.find current_user.fish_id )
   	@defense_creature = Creature.new ( Fish.find @defense.fish_id )
@@ -12,17 +12,14 @@ class FightController < ApplicationController
   		
   		if @attack_creature.turn
   		
-  			@attack_creature.preCondition
   			@log += @attack_creature.attack @defense_creature
   			@attack_creature.postCondition
   			@attack_creature.changeTurn @defense_creature
   		else
-  			@defense_creature.preCondition
   			@log += @defense_creature.attack @attack_creature
   			@log += @defense_creature.postCondition
   			@defense_creature.changeTurn @attack_creature
   		end
-  			@log += "           #{@attack_creature.fish.name}(#{@attack_creature.hp})   #{@defense_creature.fish.name}(#{@defense_creature.hp})<br>"
   	end
   	
   	if @defense_creature.hp <= 0 && @attack_creature.hp <= 0
@@ -30,7 +27,6 @@ class FightController < ApplicationController
   		@attack_creature.getExp 5
   		@defense_creature.getExp 5
   		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
-  			puts nextLvl( @defense_creature.fish.lvl )
   			@defense_creature.fish.lvl += 1
   			@defense_creature.fish.hp = getHP @defense_creature.fish.lvl, @defense_creature.fish.con, @defense_creature.fish.str, @defense_creature.fish.dex
   			@defense_creature.fish.save
@@ -61,7 +57,6 @@ class FightController < ApplicationController
   		@log += "<br>#{@defense.nick}s Fish #{@defense_creature.fish.name} gewinnt!"
   		@defense_creature.getExp 10
   		if @defense_creature.fish.exp >= nextLvl( @defense_creature.fish.lvl )
-  			puts nextLvl( @defense_creature.fish.lvl )
   			@defense_creature.fish.lvl += 1
   			@defense_creature.fish.hp = getHP @defense_creature.fish.lvl, @defense_creature.fish.con, @defense_creature.fish.str, @defense_creature.fish.dex
   			@defense_creature.fish.save
@@ -71,6 +66,8 @@ class FightController < ApplicationController
   		@attack.save
   		@defense.save
   	end
+  	
+  	@log += "</table>"
   	@m = Message.create :from_id => 1, :to_id => @defense.id, :body => "Ihr wurdet von #{@attack.nick} angegriffen. #{@log}", :betreff => "Angriff von #{@attack.nick} am #{Time.now.strftime('%d.%m.%Y')}", :to_name => @defense.nick
   end
 
