@@ -74,7 +74,7 @@
 		  <% if current_user.id == @profil.id %>
 		  	<%= link_to "Neuer Fisch", "/profile/new", :confirm => "Willst du wirklich deinen eigenen Fisch töten?" %>
 		  	| <%= link_to "Fisch editieren", "/skills/edit" %> 
-		  	| <%= link_to "Trainiere deinen Fisch", "/fight/train" %>
+		  	<!--| <%= link_to "Trainiere deinen Fisch", "/fight/train" %>-->
 		  <% else %>
 		    <%= link_to "Angreifen", "/fight/show/#{@profil.id}" %>
 		  <% end %>

@@ -5,6 +5,7 @@ end
 
 class Creature
 attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :wuerg
+	
 	def initialize fish
 	  	@fish 	= fish
 	  	@dev	= fish.dev
@@ -16,6 +17,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		@gift   = 0
 		@anzahl = 0
 		@para  	= 0
+		@stun 	= 0
 		@hart   = 0
 		@wuerg 	= 0
 		@turn	= false
@@ -32,6 +34,8 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	  				@str += Math.sqrt(fs.points).to_i
 	  			elsif tmp.first.name == "Erhöhte Geschicklichkeit"
 	  				@dex += Math.sqrt(fs.points).to_i
+	  			elsif tmp.first.name == "Erhöhte Initiative"
+	  				@init += Math.sqrt(fs.points).to_i
 	  			elsif tmp.first.name == "Erhöhte Konstitution"
 	  				@con += Math.sqrt(fs.points).to_i
 	  			end
@@ -81,18 +85,24 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	end
 	
 	def dodge
-		return rand(20)-@dex/5
+		return rand(20)-@dex/Math.sqrt(@dex)*2
 	end
 	
 	def miss
-		return rand(20+@init)
+		return rand(2+@init/Math.sqrt(@init))
 	end
 	
 	def attack def_creature
-		if @para != 0
+		log = ""
+		if @stun != 0
+			@stun -= 1
+			@para = 0
+			return "<tr><td>#{def_creature.fish.name}</td><td> kann nicht handeln</td>"
+		elsif @para != 0
+			@para = 0
 			return "<tr><td>#{def_creature.fish.name}</td><td> kann nicht handeln</td>"
 		elsif def_creature.dodge <= 0
-			return "<tr><td>#{def_creature.fish.name}</td><td> ist ausgewichen</td>"
+			return "<tr><td></td><td>ausgewichen</td><td>#{def_creature.fish.name}</td>"
 		elsif miss <= 0
 			return "<tr><td>#{@fish.name}</td><td> hat verfehlt</td>"
 		elsif @wuerg != 0
@@ -110,7 +120,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 					return "<tr><td>#{@fish.name}</td><td> greift den falschen an</td>"
 				end
 			end
-			log = def_creature.hitedCondition self
 			red = (def_creature.reduce + def_creature.fish.dev*2)/2
 			att = @str + 1
 			if def_creature.hart
@@ -118,17 +127,30 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				def_creature.hart -= 1
 			end
 			if def_creature.wuerg != 0
-				defense_creature.hp -= 4
-				log += "<tr><td>#{@fish.name}</td><td> würgt</td><td> #{defense_creature.fish.name}</td><td>-4 HP</td>"
+				if(rand(@wuerg+1) == 0)
+					log += "<tr><td>#{@fish.name}</td><td> hat sich befreit</td><td></td><td></td>"
+				else
+					defense_creature.hp -= 2 + Math.sqrt(att[1].to_i).to_i
+					log += "<tr><td>#{@fish.name}</td><td> würgt</td><td> #{defense_creature.fish.name}</td><td>-4 HP</td>"
+				end
 			else
-				log += self.selectAttack def_creature, att, red
+				tmp = self.selectAttack def_creature, att, red
+				if tmp =~ /<\/td><td>(Wunden lecken)|(Täuschung)|(Konter)|(Erhärten)/
+					log += tmp
+				else
+					log += tmp
+					log += def_creature.hitedCondition self
+				end
 			end
 			return log
 		end
 	end
 	
 	def selectAttack def_creature, dmg, red
+		dmg = dmg / 4
+		#!!!!!
 		fs = FishSkill.where("points > 0").where(:fish_id => @fish.id)
+		#!!!!!
 		log = ""
 		skills = [ ["Tackle",1], ["Tackle",1], ["Tackle",1] ]
 		fs.each do |s|
@@ -153,13 +175,13 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Blitz"
 			dmg = dmg + Math.sqrt(att[1].to_i).to_i
-			if rand(3) == 0
+			if rand(5) == 0
 				def_creature.para = Math.sqrt(att[1].to_i).to_i
 			end
 			def_creature.hp -= dmg
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Vergeltung"
-			dmg = dmg - red - 8 + Math.sqrt(att[1].to_i).to_i
+			dmg = dmg - red - 5 + Math.sqrt(att[1].to_i).to_i
 			if dmg <= 0 
 				dmg = 1
 			end
@@ -185,7 +207,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				dmg = 1
 			end
 			def_creature.hp -= dmg
-			if rand(3) == 0
+			if rand(5) == 0
 				def_creature.para = Math.sqrt(att[1].to_i).to_i
 			end
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
@@ -219,8 +241,8 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				dmg = 1
 			end
 			def_creature.hp -= dmg
-			if rand(3) == 0
-				def_creature.para = Math.sqrt(att[1].to_i).to_i
+			if rand(5) == 0
+				def_creature.stun = Math.sqrt(att[1].to_i).to_i
 			end
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Schnapper"
@@ -229,7 +251,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				dmg = 1
 			end
 			def_creature.hp -= dmg
-			if rand(3) == 0
+			if rand(5) == 0
 				def_creature.para = Math.sqrt(att[1].to_i).to_i
 			end
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
@@ -239,7 +261,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				dmg = 1
 			end
 			def_creature.hp -= dmg
-			if rand(3) == 0
+			if rand(5) == 0
 				def_creature.para = Math.sqrt(att[1].to_i.to_i).to_i
 			end
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
@@ -251,7 +273,13 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			def_creature.hp -= dmg
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Würgen"
-			
+			dmg = (dmg -red) / 2
+			if dmg <= 0
+				dmg = 1
+			end
+			def_creature.hp -= dmg
+			def_creature.wuerg = Math.sqrt(att[1].to_i).to_i
+			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Aufspießen"
 			dmg = dmg*2 - red
 			if dmg <= 0 
@@ -274,10 +302,10 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			unless tmp.first.nil?
 				if tmp.first.name == "Dornen"
 					fish_attacker.hp -= Math.sqrt(s.points).to_i
-					log += "<tr><td>#{fish_attacker.fish.name}</td><td>Dornen</td><td></td><td>-#{Math.sqrt(s.points).to_i}HP</td>"
+					log += "<tr><td></td><td>Dornen</td><td>#{fish_attacker.fish.name}</td><td>-#{Math.sqrt(s.points).to_i}HP</td>"
 				elsif tmp.first.name == "Aufgeladen"
 					fish_attacker.hp -= Math.sqrt(s.points).to_i
-					log += "<tr><td>#{fish_attacker.fish.name}</td><td>Aufladung</td><td>-#{Math.sqrt(s.points).to_i}HP</td>"
+					log += "<tr><td></td><td>Aufladung</td><td>#{fish_attacker.fish.name}</td><td>-#{Math.sqrt(s.points).to_i}HP</td>"
 				elsif tmp.first.name == "Konter"
 					if rand(20-Math.sqrt(s.points).to_i) == 0
 						log += "<tr><td>Konter:</td></tr>"
@@ -292,11 +320,11 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	def postCondition
 		if @gift != 0
 			@hp -= Math.sqrt(@gift).to_i
-			return "<tr><td>#{@fish.name}</td><td>Gift</td><td></td><td>-#{@gift}HP</td>"
+			return "<tr><td></td><td>Gift</td><td>#{@fish.name}</td><td>-#{@gift}HP</td>"
 		end
 		if @blut != 0
 			@hp -= Math.sqrt(@blut).to_i
-			return "<tr><td>#{@fish.name}</td><td>Blutung</td><td></td><td>-#{@blut}HP</td>"
+			return "<tr><td></td><td>Blutung</td><td>#{@fish.name}</td><td>-#{@blut}HP</td>"
 		end
 		return ""
 	end

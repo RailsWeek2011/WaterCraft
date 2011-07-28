@@ -2,7 +2,7 @@ class FightController < ApplicationController
   def show
   	@attack = current_user
   	@defense = User.find params[:id]
-  	@log = "<table id = 'fight'>"
+  	@log = "<table id = 'fight' align=center>"
   	
   	@attack_creature = Creature.new ( Fish.find current_user.fish_id )
   	@defense_creature = Creature.new ( Fish.find @defense.fish_id )
@@ -11,13 +11,13 @@ class FightController < ApplicationController
   	@log = the_fight @attack_creature, @defense_creature, @log
   	
   	if @defense_creature.hp <= 0 && @attack_creature.hp <= 0
-  		@log += "<br> Uentschieden"
+  		@log += "<div id='erg'> Uentschieden</div><br><br>"
   		draw @attack, @defense, @attack_creature, @defense_creature
   	elsif @defense_creature.hp <= 0
-  		@log += "<br>#{@attack.nick}s Fisch #{@attack_creature.fish.name} gewinnt!"
+  		@log += "<div id='erg'>#{@attack.nick}s Fish #{@attack_creature.fish.name} gewinnt!</div><br><br>"
   		afterFight @attack, @defense, @attack_creature, @defense_creature
   	else
-  		@log += "<br>#{@defense.nick}s Fisch #{@defense_creature.fish.name} gewinnt!"
+  		@log += "<div id='erg'>#{@defense.nick}s Fisch #{@defense_creature.fish.name} gewinnt!</div><br><br>"
   		afterFight @defense, @attack, @defense_creature, @attack_creature
   	end
   	

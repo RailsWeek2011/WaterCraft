@@ -11,8 +11,14 @@ body {
 	font-family:	Corbel, Centaur, Comic Sans, Verdana;
 }
 
+
+div#footer {
+	font-size: 0.6em;
+}
+
 div#head {
 	text-align: center;
+	font-family: Ubuntu;
 }
 
 div#menu {
@@ -40,7 +46,7 @@ div#content {
 	margin-top: 20px;
 	background-color: navy;
 	color:	white;
-	clear: both;
+	margin: auto;
 }
 
 h1 {
