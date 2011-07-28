@@ -1,4 +1,4 @@
-	<script type="text/javascript">
+<script type="text/javascript">
 		var peter = <%= (Fish.find current_user.fish_id).lvl-4 %>;
 		var peter2 = <%= (Fish.find current_user.fish_id).lvl + 12  %>;
 		
@@ -95,8 +95,8 @@
 				document.getElementById("Anzahl1").innerHTML = tmp;
 			}
 		}
-	</script>
-	
+</script>
+
 <%= form_tag(:controller => "skills", :action => "update", :method => "post") do %>
 
 	<div id = "nick">

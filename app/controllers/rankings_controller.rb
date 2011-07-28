@@ -1,19 +1,25 @@
 class RankingsController < ApplicationController
   
   def rank
-  id = params[:id].to_i 
+  @id = params[:id].to_i 
   
-    case id
+    case @id
     	when 1 # EXP
-			@f = Fish.find :all, :order => "exp DESC"
-		
+			@f = Fish.order('exp desc')
     	when 2 # LVL
-    		@f = Fish.find :all, :order => "lvl DESC"
-    		
-    	when 3 # Kämpfe
-    		@u = User.find :all, :order => "win DESC"
-    		@f = Fish.all
-			
+			@f = Fish.order('exp asc')
+    	when 3 # Siege
+    		@f = Fish.order('lvl desc')
+    	when 4
+    		@f = Fish.order('lvl asc')
+    	when 5
+    		@u = User.order('win desc')
+    	when 6
+    		@u = User.order('win asc')
+    	when 7
+    		@u = User.where('win+lose > 0').order('win/win+lose desc')
+    	when 8
+    		@u = User.where('win+lose > 0').order('win/win+lose asc')
 		else
 			@f = Fish.all
 			

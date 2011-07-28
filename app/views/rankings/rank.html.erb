@@ -25,59 +25,48 @@
 					Fisch
 				</th>
 				<th>
-					<%= link_to "Erfahrung", "/rankings/rank/1" %>
+					<% if @id == 2 %>
+						<%= link_to "Erfahrung", "/rankings/rank/1" %>
+					<% elsif @id == 1 %>
+						<%= link_to "Erfahrung", "/rankings/rank/2" %>
+					<% else %>
+						<%= link_to "Erfahrung", "/rankings/rank/1" %>
+					<% end %>
 				</th>
 				<th>
-					<%= link_to "Level", "/rankings/rank/2" %>
+					<% if @id == 3 %>
+						<%= link_to "Level", "/rankings/rank/4" %>
+					<% elsif @id == 4 %>
+						<%= link_to "Level", "/rankings/rank/3" %>
+					<% else %>
+						<%= link_to "Level", "/rankings/rank/3" %>
+					<% end %>
 				</th>
 				<th>
-					Siege
-					<%#= link_to "Siege", "/rankings/rank/3" %>
+					<% if @id == 6 %>
+						<%= link_to "Siege", "/rankings/rank/5" %>
+					<% elsif @id == 5 %>
+						<%= link_to "Siege", "/rankings/rank/6" %>
+					<% else %>
+						<%= link_to "Siege", "/rankings/rank/5" %>
+					<% end %>
 				</th>
 				<th>
-					Siegquote
+					<% if @id == 8 %>
+						<%= link_to "Siegquote", "/rankings/rank/7" %>	
+					<% elsif @id == 7 %>
+						<%= link_to "Siegquote", "/rankings/rank/8" %>	
+					<% else %>
+						<%= link_to "Siegquote", "/rankings/rank/7" %>	
+					<% end %>
 				</th>
 			</tr>
-	<% unless @f.size == 0 %>
 		<% unless @f.nil? %>
-			<% i = 0 %>
-			<% @f.each do |fish| %>
-				<% user = (User.where :fish_id => fish.id).first %>
-				<% unless user.nil? %>
-				<% i += 1 %>
-				<tr>
-					<td>
-						<%= i %>
-					</td>
-					<td>
-						<%= user.nick %>
-					</td>
-					<td>
-						<%= getRaceName(fish.race) %>
-					</td>
-					<td>
-						<%= fish.exp %>
-					</td>
-					<td>
-						<%= fish.lvl %>
-					</td>
-					<td>
-						<%= user.win %>
-					</td>
-					<td>
-						<%= getQ(user) %>
-					</td>
-				</tr>
-				<% end %>
-			<% end %>
-		
-		<% else %>
-
-			<% i = 0 %>
-			<% @u.each do |user| %>
-			  <% unless user.fish_id.nil? %>
-				<% fish = (Fish.find user.fish_id).first %>
-				<% unless fish.nil? %>
+			<% unless @f.size == 0 %>
+				<% i = 0 %>
+				<% @f.each do |fish| %>
+					<% user = (User.where :fish_id => fish.id).first %>
+					<% unless user.nil? %>
 					<% i += 1 %>
 					<tr>
 						<td>
@@ -102,12 +91,44 @@
 							<%= getQ(user) %>
 						</td>
 					</tr>
+					<% end %>
 				<% end %>
+			<% end %>
+		
+		<% else %>
+
+			<% i = 0 %>
+			<% @u.each do |user| %>
+			  <% unless user.fish_id.nil? %>
+				<% fish = Fish.find user.fish_id %>
+					<% i += 1 %>
+					<tr>
+						<td>
+							<%= i %>
+						</td>
+						<td>
+							<%= user.nick %>
+						</td>
+						<td>
+							<%= getRaceName(fish.race) %>
+						</td>
+						<td>
+							<%= fish.exp %>
+						</td>
+						<td>
+							<%= fish.lvl %>
+						</td>
+						<td>
+							<%= user.win %>
+						</td>
+						<td>
+							<%= getQ(user) %>
+						</td>
+					</tr>
 			  <% end %>
 			<% end %>
+		<% end %>
 		</table>
 	</div>
-		<% end %>
-	<% end %>
 		
 </div>

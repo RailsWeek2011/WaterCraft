@@ -23,12 +23,9 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		@reduce = 1
 		@hp		= 2 * @fish.lvl + 2 * @con + @str + @dex
 		@fs		= FishSkill.where("points > 0").where(:fish_id => @fish.id)
-  		fs 		= FishSkill.where :fish_id => @fish.id
-  		skillof	= FishSkill.where("points > 0").where :fish_id => @fish.id#f_id
   		
-	  	#f_id = @fish.id
-	  	skillof.each do |fs|
-	  		tmp = getSkillsInit #fs :id
+	  	@fs.each do |fs|
+	  		tmp = Skill.where :id => fs.skill_id, :when => "stat"
 	  		unless tmp.first.nil?
 	  			if tmp.first.name == "Starke Verteidigung"
 	  				@dev += Math.sqrt(fs.points).to_i
@@ -41,7 +38,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	  			elsif tmp.first.name == "Erhöhte Konstitution"
 	  				@con += Math.sqrt(fs.points).to_i
 	  			end
-			 end
+		 	end
 	  	end
 	  	
 		fs.each do |s|
@@ -52,10 +49,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				end
 			end
 		end
-	end
-	
-	def getSkillsInit #frish id
-		return Skill.all
 	end
 	
 	def getExp i
