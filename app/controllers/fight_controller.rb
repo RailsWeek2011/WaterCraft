@@ -72,18 +72,14 @@ class FightController < ApplicationController
   	while defense.hp > 0 && attack.hp > 0 do
   		
   		if attack.turn
-  		
-  			attack.preCondition
   			log += attack.attack defense
   			attack.postCondition
   			attack.changeTurn defense
   		else
-  			defense.preCondition
   			log += defense.attack attack
   			log += defense.postCondition
   			defense.changeTurn attack
   		end
-  			log += "           #{attack.fish.name}(#{attack.hp})   #{defense.fish.name}(#{defense.hp})<br>"
   	end
   		return log
   end
