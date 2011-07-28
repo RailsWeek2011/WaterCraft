@@ -11,7 +11,11 @@
   <div id="mess_body">
   
     <b>Nachricht</b><br>
-    <%= @m.body %>
+    <% if @m.from_id < 3 %>
+    	<%= simple_format(@m.body) %>
+    <% else %>
+    	<%= @m.body %>
+    <% end %>
   
   </div>
   

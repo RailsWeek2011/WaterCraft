@@ -44,6 +44,7 @@ class FightController < ApplicationController
   		@defense.lose += 1
   		@attack.save
   		@defense.save
+  		
   	elsif @defense_creature.hp <= 0
   		@log += "<br>#{@attack.nick}s Fish #{@attack_creature.fish.name} gewinnt!"
   		@attack_creature.getExp 10
@@ -70,7 +71,7 @@ class FightController < ApplicationController
   		@attack.save
   		@defense.save
   	end
-  	
+  	@m = Message.create :from_id => 1, :to_id => @defense.id, :body => "Ihr wurdet von #{@attack.nick} angegriffen. #{@log}", :betreff => "Angriff von #{@attack.nick} am #{Time.now.strftime('%d.%m.%Y')}", :to_name => @defense.nick
   end
 
   def nextLvl lvl

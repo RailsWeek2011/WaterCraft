@@ -1,8 +1,28 @@
+#ENCODING: utf-8
 class ProfileController < ApplicationController
 	
   def show
   	@profil = User.find params[:id]
   	@anz = @profil.win + @profil.lose
+  	@fish = Fish.find @profil.fish_id
+  	
+  	f_id = @profil.fish_id
+  	
+  	(FishSkill.where("points > 0").where :fish_id => f_id).each do |fs|
+  		tmp = Skill.where :id => fs.skill_id, :when => "stat"
+  		unless tmp.first.nil?
+  			if tmp.first.name == "Starke Verteidigung"
+  				@fish.dev += Math.sqrt(fs.points)
+  			elsif tmp.first.name == "Erhöhte Stärke"
+  				@fish.str += Math.sqrt(fs.points)
+  			elsif tmp.first.name == "Erhöhte Geschicklichkeit"
+  				@fish.dex += Math.sqrt(fs.points)
+  			elsif tmp.first.name == "Erhöhte Konstitution"
+  				@fish.con += Math.sqrt(fs.points)
+  			end
+		 end
+  	end
+  	
   end
 
   def edit

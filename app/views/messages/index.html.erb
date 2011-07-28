@@ -20,7 +20,7 @@
 		<% @m.each do |message| %>
 		<tr>
 				<td>
-					<%= link_to message.to_name, "/messages/#{message.id}" %>
+					<%= link_to (User.find message.from_id).nick, "/messages/#{message.id}" %>
 				</td>
 				<td>
 					<%= message.betreff %>

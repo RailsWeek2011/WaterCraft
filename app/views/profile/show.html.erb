@@ -67,7 +67,7 @@
 <div id="userfish">
 	<h3><%= @profil.nick %>s Fisch</h3>
 	<div id="fishimg">
-		<%= image_tag "Fisch/#{(Fish.find @profil.fish_id).race}.jpg", :height => 260, :id => "Bild" %>
+		<%= image_tag "Fisch/#{@fish.race}.jpg", :height => 260, :id => "Bild" %>
 	</div>
 	<div>
 		<div id="edit">
@@ -86,7 +86,7 @@
 			</colgroup>
 			<tr>
 				<th>Name</th>
-				<td><%= (Fish.find @profil.fish_id).name %></td>
+				<td><%= (@fish).name %></td>
 			</tr>
 			<tr>
 				<th>
@@ -95,14 +95,14 @@
 			</tr>
 			<tr>
 				<th>Rasse</th>
-				<td><%= getRaceName (Fish.find @profil.fish_id).race %></td>
+				<td><%= getRaceName (@fish).race %></td>
 			</tr>
 			<tr>
 				<th>
 					Level
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).lvl %>
+					<%= (@fish).lvl %>
 				</td>
 			</tr>
 			<tr>
@@ -110,7 +110,7 @@
 					Erfahrung
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).exp %>
+					<%= (@fish).exp %>
 				</td>
 			</tr>
 			<tr>
@@ -118,7 +118,7 @@
 					HP
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).hp %>
+					<%= 2 * @fish.lvl + 2 * @fish.con + @fish.str + @fish.dex %>
 				</td>
 			</tr>
 			<tr>
@@ -126,7 +126,7 @@
 					Stärke
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).str %>
+					<%= (@fish).str %>
 				</td>
 			</tr>
 			<tr>
@@ -134,7 +134,7 @@
 					Verteidigung
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).dev %>
+					<%= (@fish).dev %>
 				</td>
 			</tr>
 			<tr>
@@ -142,7 +142,7 @@
 					Kondition
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).con %>
+					<%= (@fish).con %>
 				</td>
 			</tr>
 			<tr>
@@ -150,7 +150,7 @@
 					Initiative
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).init %>
+					<%= (@fish).init %>
 				</td>
 			</tr>
 			<tr>
@@ -158,7 +158,7 @@
 					Geschicklichkeit
 				</th>
 				<td>
-					<%= (Fish.find @profil.fish_id).dex %>
+					<%= (@fish).dex %>
 				</td>
 			</tr>
 		</table>
