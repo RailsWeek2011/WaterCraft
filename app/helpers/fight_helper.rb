@@ -23,9 +23,13 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		@reduce = 1
 		@hp		= 2 * @fish.lvl + 2 * @con + @str + @dex
 		@fs		= FishSkill.where("points > 0").where(:fish_id => @fish.id)
+  		fs 		= FishSkill.where :fish_id => @fish.id
+  		skillof	= FishSkill.where("points > 0").where :fish_id => @fish.id#f_id
   		
-	  	@fs.each do |fs|
-	  		tmp = Skill.where :id => fs.skill_id, :when => "stat"
+	  	#f_id = @fish.id
+	  	i = 0
+	  	skillof.each do |fs|
+	  		tmp = getSkillsInit #fs :id
 	  		unless tmp.first.nil?
 	  			if tmp.first.name == "Starke Verteidigung"
 	  				@dev += Math.sqrt(fs.points).to_i
@@ -38,7 +42,8 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	  			elsif tmp.first.name == "Erhöhte Konstitution"
 	  				@con += Math.sqrt(fs.points).to_i
 	  			end
-		 	end
+			 end
+			 i += 1
 	  	end
 	  	
 		fs.each do |s|
@@ -49,6 +54,10 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				end
 			end
 		end
+	end
+	
+	def getSkillsInit #frish id
+		return Skill.all
 	end
 	
 	def getExp i
@@ -133,7 +142,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		log = ""
 		skills = [ ["Tackle",1], ["Tackle",1], ["Tackle",1] ]
 		@fs.each do |s|
-			tmp = getSkill :id
+			tmp = getSkill :id, s
 			unless tmp.first.nil?
 				if tmp.first.name == "Meucheln"
 					if def_creature.hp <= def_creature.fish.hp/2
@@ -194,7 +203,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			@hp += @fish.hp/(10-Math.sqrt(att[1].to_i).to_i)
 			@blut = 0
 			@gift = 0
-			log += "<tr><td>{@fish.name}</td><td>#{att[0]}</td><td></td><td>+#{@fish.hp/4} HP</td>"
+			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td></td><td>+#{@fish.hp/4} HP</td>"
 		elsif att[0] == "Täuschung"
 			@anzahl = Math.sqrt(att[1].to_i).to_i
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td></td><td>#{Math.sqrt(att[1].to_i).to_i} Ebenbild</td><td></td>"
@@ -314,7 +323,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	
 	end
 	
-	def getSkill id
+	def getSkill id, s
 		return Skill.where id => s.skill_id, :when => "att"
 	end
 	
