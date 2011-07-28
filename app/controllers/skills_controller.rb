@@ -38,7 +38,7 @@ class SkillsController < ApplicationController
   	tmp.hp = getHP tmp.lvl, tmp.con, tmp.str, tmp.dex
 	tmp.save
   	
-  	redirect_to "/skills/edit"
+  	redirect_to "/profile/show/#{current_user.id}"
   end
   
 end
