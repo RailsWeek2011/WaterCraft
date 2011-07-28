@@ -73,7 +73,7 @@ class FightController < ApplicationController
   		
   		if attack.turn
   			log += attack.attack defense
-  			attack.postCondition
+  			log += attack.postCondition
   			attack.changeTurn defense
   		else
   			log += defense.attack attack

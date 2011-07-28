@@ -19,7 +19,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		@para  	= 0
 		@stun 	= 0
 		@hart   = 0
-		@wuerg 	= 0
 		@turn	= false
 		@reduce = 1
   	
@@ -105,12 +104,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			return "<tr><td></td><td>ausgewichen</td><td>#{def_creature.fish.name}</td>"
 		elsif miss <= 0
 			return "<tr><td>#{@fish.name}</td><td> hat verfehlt</td>"
-		elsif @wuerg != 0
-			if rand(@wuerg - @init/3) == 0
-				@wuerg = 0
-			else
-				return "<tr><td>#{def_creature.fish.name}</td><td>kann nicht handeln ist im würgegriff</td>"
-			end
 		else
 			if def_creature.anzahl > 0
 				if rand(def_creature.anzahl+1) == 0
@@ -126,21 +119,12 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 				red /= 2
 				def_creature.hart -= 1
 			end
-			if def_creature.wuerg != 0
-				if(rand(@wuerg+1) == 0)
-					log += "<tr><td>#{@fish.name}</td><td> hat sich befreit</td><td></td><td></td>"
-				else
-					defense_creature.hp -= 2 + Math.sqrt(att[1].to_i).to_i
-					log += "<tr><td>#{@fish.name}</td><td> würgt</td><td> #{defense_creature.fish.name}</td><td>-4 HP</td>"
-				end
+			tmp = self.selectAttack def_creature, att, red
+			if tmp =~ /<\/td><td>(Wunden lecken)|(Täuschung)|(Konter)|(Erhärten)/
+				log += tmp
 			else
-				tmp = self.selectAttack def_creature, att, red
-				if tmp =~ /<\/td><td>(Wunden lecken)|(Täuschung)|(Konter)|(Erhärten)/
-					log += tmp
-				else
-					log += tmp
-					log += def_creature.hitedCondition self
-				end
+				log += tmp
+				log += (def_creature.hitedCondition self)
 			end
 			return log
 		end
@@ -148,7 +132,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	
 	def selectAttack def_creature, dmg, red
 		dmg = dmg / 4
-		#!!!!!
+
 		fs = FishSkill.where("points > 0").where(:fish_id => @fish.id)
 		#!!!!!
 		log = ""
@@ -271,14 +255,6 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		elsif att[0] == "Zermalmen"
 			dmg = dmg*2 + 5 + Math.sqrt(att[1].to_i.to_i).to_i
 			def_creature.hp -= dmg
-			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
-		elsif att[0] == "Würgen"
-			dmg = (dmg -red) / 2
-			if dmg <= 0
-				dmg = 1
-			end
-			def_creature.hp -= dmg
-			def_creature.wuerg = Math.sqrt(att[1].to_i).to_i
 			log += "<tr><td>#{@fish.name}</td><td>#{att[0]}</td><td>#{def_creature.fish.name}</td><td>-#{dmg} HP</td><td>#{red} Wiederstanden</td>"
 		elsif att[0] == "Aufspießen"
 			dmg = dmg*2 - red
