@@ -21,6 +21,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 		@hart   = 0
 		@turn	= false
 		@reduce = 1
+		@fs		= FishSkill.where("points > 0").where(:fish_id => @fish.id)
   	
 	  	f_id = @fish.id
 	  	
@@ -132,13 +133,11 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	
 	def selectAttack def_creature, dmg, red
 		dmg = dmg / 4
-
-		fs = FishSkill.where("points > 0").where(:fish_id => @fish.id)
-		#!!!!!
+		
 		log = ""
 		skills = [ ["Tackle",1], ["Tackle",1], ["Tackle",1] ]
-		fs.each do |s|
-			tmp = Skill.where :id => s.skill_id, :when => "att"
+		@fs.each do |s|
+			tmp = getSkill :id
 			unless tmp.first.nil?
 				if tmp.first.name == "Meucheln"
 					if def_creature.hp <= def_creature.fish.hp/2
@@ -313,6 +312,10 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 			@turn = true
 			def_creature.turn = false
 		end
-	end	
+	end
+	
+	def getSkill id
+		return Skill.where id => s.skill_id, :when => "att"
+	end
 	
 end
