@@ -2,7 +2,7 @@ class FightController < ApplicationController
   def show
   	@attack = current_user
   	@defense = User.find params[:id]
-  	@log = ""
+  	@log = "<table id = 'fight'>"
   	
   	@attack_creature = Creature.new ( Fish.find current_user.fish_id )
   	@defense_creature = Creature.new ( Fish.find @defense.fish_id )
