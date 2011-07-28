@@ -29,8 +29,10 @@
 						<%= link_to "Erfahrung", "/rankings/rank/1" %>
 					<% elsif @id == 1 %>
 						<%= link_to "Erfahrung", "/rankings/rank/2" %>
-					<% else %>
+					<% elsif @id % 2 == 0 %>
 						<%= link_to "Erfahrung", "/rankings/rank/1" %>
+					<% else %>
+						<%= link_to "Erfahrung", "/rankings/rank/2" %>
 					<% end %>
 				</th>
 				<th>
