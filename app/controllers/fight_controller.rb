@@ -14,7 +14,7 @@ class FightController < ApplicationController
   		@log += "<br> Uentschieden"
   		draw @attack, @defense, @attack_creature, @defense_creature
   	elsif @defense_creature.hp <= 0
-  		@log += "<br>#{@attack.nick}s Fish #{@attack_creature.fish.name} gewinnt!"
+  		@log += "<br>#{@attack.nick}s Fisch #{@attack_creature.fish.name} gewinnt!"
   		afterFight @attack, @defense, @attack_creature, @defense_creature
   	else
   		@log += "<br>#{@defense.nick}s Fisch #{@defense_creature.fish.name} gewinnt!"
@@ -26,7 +26,7 @@ class FightController < ApplicationController
   end
 
   def nextLvl lvl
-	unless lvl < 60
+	if lvl < 60
 		exp = 0
 		lvl.times do
 			exp += 90
