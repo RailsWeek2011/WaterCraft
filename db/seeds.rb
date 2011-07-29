@@ -1,6 +1,6 @@
 #ENCODING: utf-8
 u = User.new :password => "miaumiau", :nick => "Quallenmann", :email => "Markus_Kretsch@gmx.de", :password_confirmation => "miaumiau", :isAdmin => true
-f = Fish.new :name => "Mrs Gisela", :lvl => 60, :race => 14
+f = Fish.new :name => "Mrs Gisela", :lvl => 20, :race => 14
 f.save
 u.fish_id = f.id
 u.isAdmin = true
@@ -8,7 +8,7 @@ u.save
 
 
 u = User.new :nick => "zeyorama", :email => "zeyorama@hotmail.de", :password => "zeyoramaadmin", :password_confirmation => "zeyoramaadmin", :isAdminb => true
-f = Fish.new :name => "St. Peter", :lvl => 60, :race => 2
+f = Fish.new :name => "St. Peter", :lvl => 20, :race => 2
 f.save
 u.fish_id = f.id
 u.isAdmin = true
