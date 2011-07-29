@@ -20,7 +20,7 @@ WaterCraft::Application.routes.draw do
 	get "/profile/index" => "profile#index"
 	get "/profile/create" => "profile#create"
 	get "/profile/new" => "profile#new"
-	#get "/profile/delete/:id" => "profile#delete"
+	get "/profile/delete/:id" => "profile#delete"
 
 
 

@@ -47,11 +47,11 @@
 					<% end %>
 				</td>
 				<td>
-					<%# if current_user.isAdmin == true %>
-						<%# if user.isAdmin == false %>
-							<%#= link_to "User entfernen", "/profile/delete/#{user.id}", :confirm => "User wirklich löschen?" %>
-						<%# end %>
-					<%# end %>
+					<% if current_user.isAdmin == true %>
+						<% if user.isAdmin == false %>
+							<%= link_to "User entfernen", "/profile/delete/#{user.id}", :confirm => "User wirklich löschen?" %>
+						<% end %>
+					<% end %>
 				</td>
 		</tr>
 		<% end %>
