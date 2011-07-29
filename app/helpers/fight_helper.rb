@@ -61,7 +61,7 @@ attr_accessor :blut, :gift, :turn, :fish, :para, :hp, :reduce, :anzahl, :hart, :
 	end
 	
 	def getExp i
-		@fish.exp += 10
+		@fish.exp += i.to_i
 		@fish.save
 	end
 
