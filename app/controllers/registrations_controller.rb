@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
 			end
     		f.destroy
     	end
-    	unless current_user.image.nil?
+    	unless current_user.image?
     		File.delete("public/#{current_user.image}")
     	end
   		resource.destroy

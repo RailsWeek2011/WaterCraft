@@ -5,7 +5,7 @@ class ProfileController < ApplicationController
   	@profil = User.find params[:id]
   	@anz = @profil.win + @profil.lose
   	f_id = @profil.fish_id
-	  	
+	
 	unless f_id.nil?
 	  	@fish = Fish.find @profil.fish_id
 	  	
@@ -90,11 +90,11 @@ def delete
 			end
 			f.delete
 		end
-			
-    	unless user.image.nil?
+		
+    	unless user.image?
 			File.delete("public/#{user.image}")
 		end
-		user.delete
+		user.destroy
 	 	redirect_to("/profile/index")
   	end
   end
