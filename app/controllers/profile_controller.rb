@@ -73,30 +73,32 @@ class ProfileController < ApplicationController
   end
 
   def index
-  	@u = User.all
+  	@u = User.order('nick asc')
   end
 
 # User entfernen als Admin  funktioniert aber noch nicht
   # grund:  42
-#  def delete
-#  	puts params[:id]
-#  	puts User.find params[:id]
-#  	user = User.find params[:id]
-#	unless user.fish_id.nil?
-#		f = Fish.find user.fish_id
-#		fs = FishSkill.where :fish_id => f.id
+  #def delete
+#	if current_user.isAdmin == true
+#	  	user = User.find params[:id]
+#		unless user.fish_id.nil?
+#			f = Fish.find user.fish_id
+#			fs = FishSkill.where :fish_id => f.id
+#			unless fs.first.nil?
+#				fs.each do |fischskill|
+#					fischskill.destroy    	
+#				end
+#			end
 #
-#		fs.each do |fischskill|
-#			fischskill.destroy    	
+#			f.destroy
+#			u_img = user.image
+##			if u_img.nil?
+#				File.delete("public/#{user.image}")
+#			end
 #		end
-#
-#		f.destroy
-#		unless user.file.nil?
-#			File.delete("public/#{current_user.image}")
-#		end
-#	end
-#	user.destroy
-#  	redirect_to("profile#index")
+##		user.destroy
+#	 	redirect_to("profile#index")
+#  	end
 #  end
 
 end
