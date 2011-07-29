@@ -1,7 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   
     def destroy
-    	unless current_user.fish_id.nil?
+    	user = current_user
+    	unless user.fish_id.nil?
     		f = Fish.find current_user.fish_id
 			fs = FishSkill.where :fish_id => f.id
 			
@@ -11,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     		f.destroy
     	end
-    	unless current_user.image.nil?
+    	unless user.image.nil?
     		File.delete("public/#{current_user.image}")
     	end
   		resource.destroy
