@@ -110,10 +110,10 @@ class ProfileController < ApplicationController
 			end
 			user.destroy
 		 	redirect_to("/profile/index")
-	  	end
-	  rescue Exception => e
-		 redirect_to("/profile/index")	  	
 	  end
+	rescue Exception => e
+		 redirect_to("/profile/index")	  	
+	end
   end
 
 end
